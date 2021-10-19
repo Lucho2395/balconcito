@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Invoice xmlns="urn:oasis:names:specification:ubl:schema:xsd:Invoice-2" xmlns:cac="urn:oasis:names:specification:ubl:schema:xsd:CommonAggregateComponents-2" xmlns:cbc="urn:oasis:names:specification:ubl:schema:xsd:CommonBasicComponents-2" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:ext="urn:oasis:names:specification:ubl:schema:xsd:CommonExtensionComponents-2">
+         <ext:UBLExtensions>
+            <ext:UBLExtension>
+               <ext:ExtensionContent><ds:Signature Id="SignatureSP"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI=""><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>aGOe9HDPq39T2ga2253w5Dzn3XQ=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>MvMEMT8UhONMuMBeFzwAiTmA7yXyYYqr5kj+gjggzmWHz4OkYiaos8Ya/07IRmyGj3o+6OJ9KB+7nRH5jRX1lCasQ9IcVaAeclX5M8cju/1dDaqxcWAUtqUCR4gYf2ohObWNT9QhwHSORRMdlu/bEs9cJC2Lg/F5Mr52LIhxHKLDV0gACk+BUJNNA9B4Dd3tUUgRkS6LIG5KUYNGo4OkgWbfM3keJks9Amzhet4HS5J2S6uHRxAZByXEnaFORpbuTWP21k2l07aciZsYYGye3SR8Zg0eSEBRHbsZubF9RBZUju3F7GFPNkO/CKw5A4N0XWBY6e00k78QEzr9uDH66g==</ds:SignatureValue><ds:KeyInfo><ds:X509Data><ds:X509Certificate>MIIE+DCCA+CgAwIBAgIJANOvKlyejv5uMA0GCSqGSIb3DQEBBQUAMIIBDTEbMBkGCgmSJomT8ixkARkWC0xMQU1BLlBFIFNBMQswCQYDVQQGEwJQRTENMAsGA1UECAwETElNQTENMAsGA1UEBwwETElNQTEYMBYGA1UECgwPVFUgRU1QUkVTQSBTLkEuMUUwQwYDVQQLDDxETkkgOTk5OTk5OSBSVUMgMjA2MDIyNDc2ODcgLSBDRVJUSUZJQ0FETyBQQVJBIERFTU9TVFJBQ0nDk04xRDBCBgNVBAMMO05PTUJSRSBSRVBSRVNFTlRBTlRFIExFR0FMIC0gQ0VSVElGSUNBRE8gUEFSQSBERU1PU1RSQUNJw5NOMRwwGgYJKoZIhvcNAQkBFg1kZW1vQGxsYW1hLnBlMB4XDTIxMDQyNDE2NTI0MloXDTIzMDQyNDE2NTI0MlowggENMRswGQYKCZImiZPyLGQBGRYLTExBTUEuUEUgU0ExCzAJBgNVBAYTAlBFMQ0wCwYDVQQIDARMSU1BMQ0wCwYDVQQHDARMSU1BMRgwFgYDVQQKDA9UVSBFTVBSRVNBIFMuQS4xRTBDBgNVBAsMPEROSSA5OTk5OTk5IFJVQyAyMDYwMjI0NzY4NyAtIENFUlRJRklDQURPIFBBUkEgREVNT1NUUkFDScOTTjFEMEIGA1UEAww7Tk9NQlJFIFJFUFJFU0VOVEFOVEUgTEVHQUwgLSBDRVJUSUZJQ0FETyBQQVJBIERFTU9TVFJBQ0nDk04xHDAaBgkqhkiG9w0BCQEWDWRlbW9AbGxhbWEucGUwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDPInbv+2jfLseJ2sWanLzFQ1wCvVOkgyN3+B3jk8Dn29m1w+bKlsh9PNE2dN2/RjU9b7xbOSPq28lmFxQfqeAQB0/7zn1U01tbb8l9KN5l/29AbRyoSHoHzVfmYlU7kPv86rwV930aQT2RrgmKwa4cph58S/dGMXx6Y07WcXxTk9hSqucZY7JJfoJGXPpVrxsYQKfTNPZqAD8nfsnjqMJBCse/0OxdBSCnB7TZfp67XDppkHzzgrbDtXO42F414s3m0JkhiYc2Zvs5yw6QnzAq/Xm9wYjT8/S1CRaE51szji9OSwyVzrELeltJ2c9XHEdkTdQRdTamXrBtigm6iB2TAgMBAAGjVzBVMB0GA1UdDgQWBBRijL5V6+QIM5dKdDqElhYh++mOqzAfBgNVHSMEGDAWgBRijL5V6+QIM5dKdDqElhYh++mOqzATBgNVHSUEDDAKBggrBgEFBQcDATANBgkqhkiG9w0BAQUFAAOCAQEAJ7wJajOL1ryVg7TEVQlLVYf6BXD1sWew59FMHf8cSRPUAI0lJZ8+2n6tj5zQZ9dv1C8vArjMK7bu3uQY512VCEe+aDIpBvFp0oL4UILbnrHWTW5UR6PtVqLtmsUcnKzJKJbUWBOOabvlFwk9qw9zdVcBH5C0otdlsAv4g01alj7HpCZnD8F8FEBZnZuDyXsN36jjmdTK0yH56N5CS2LDAwHZNSXe/eWMVHoSeWRxF9ls6vFB4y8bnes4tmoJ1+vsmt0uskhjGZyMO8lxMJGw910m+TY2nugFfr7NPrUAhiNwReZIlyauVD6CTgK9Ir1EFJL32sns7LqwtoV3ucIcTw==</ds:X509Certificate></ds:X509Data></ds:KeyInfo></ds:Signature></ext:ExtensionContent>
+            </ext:UBLExtension>
+         </ext:UBLExtensions>
+         <cbc:UBLVersionID>2.1</cbc:UBLVersionID>
+         <cbc:CustomizationID>2.0</cbc:CustomizationID>
+         <cbc:ID>B002-30</cbc:ID>
+         <cbc:IssueDate>2021-08-13</cbc:IssueDate>
+         <cbc:IssueTime>17:28:01</cbc:IssueTime>
+         <cbc:DueDate>2021-08-13</cbc:DueDate>
+         <cbc:InvoiceTypeCode listID="0101">03</cbc:InvoiceTypeCode>
+         <cbc:Note languageLocaleID="1000"><![CDATA[DIEZ  CON 00/100 SOLES]]></cbc:Note>
+         <cbc:DocumentCurrencyCode>PEN</cbc:DocumentCurrencyCode>
+         <cac:Signature>
+            <cbc:ID>20606320796</cbc:ID>
+            <cbc:Note><![CDATA[GAIA RESTAURANT CEVICHERIA]]></cbc:Note>
+            <cac:SignatoryParty>
+               <cac:PartyIdentification>
+                  <cbc:ID>20606320796</cbc:ID>
+               </cac:PartyIdentification>
+               <cac:PartyName>
+                  <cbc:Name><![CDATA[GAIA RESTAURANT CEVICHERIA S.R.L.]]></cbc:Name>
+               </cac:PartyName>
+            </cac:SignatoryParty>
+            <cac:DigitalSignatureAttachment>
+               <cac:ExternalReference>
+                  <cbc:URI>#SIGN-EMPRESA</cbc:URI>
+               </cac:ExternalReference>
+            </cac:DigitalSignatureAttachment>
+         </cac:Signature>
+         <cac:AccountingSupplierParty>
+            <cac:Party>
+               <cac:PartyIdentification>
+                  <cbc:ID schemeID="6">20606320796</cbc:ID>
+               </cac:PartyIdentification>
+               <cac:PartyName>
+                  <cbc:Name><![CDATA[GAIA RESTAURANT CEVICHERIA]]></cbc:Name>
+               </cac:PartyName>
+               <cac:PartyLegalEntity>
+                  <cbc:RegistrationName><![CDATA[GAIA RESTAURANT CEVICHERIA S.R.L.]]></cbc:RegistrationName>
+                  <cac:RegistrationAddress>
+                     <cbc:ID>160101</cbc:ID>
+                     <cbc:AddressTypeCode>0000</cbc:AddressTypeCode>
+                     <cbc:CitySubdivisionName>NONE</cbc:CitySubdivisionName>
+                     <cbc:CityName>MAYNAS</cbc:CityName>
+                     <cbc:CountrySubentity>LORETO</cbc:CountrySubentity>
+                     <cbc:District>SAN JUAN BAUTISTA</cbc:District>
+                     <cac:AddressLine>
+                        <cbc:Line><![CDATA[CAL. LOS FRUTALES NRO. B-1 (AV GUARDIA CIVIL)]]></cbc:Line>
+                     </cac:AddressLine>
+                     <cac:Country>
+                        <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+                     </cac:Country>
+                  </cac:RegistrationAddress>
+               </cac:PartyLegalEntity>
+            </cac:Party>
+         </cac:AccountingSupplierParty>
+         <cac:AccountingCustomerParty>
+            <cac:Party>
+               <cac:PartyIdentification>
+                  <cbc:ID schemeID="1">11111111</cbc:ID>
+               </cac:PartyIdentification>
+               <cac:PartyLegalEntity>
+                  <cbc:RegistrationName><![CDATA[Anonimo]]></cbc:RegistrationName>
+                  <cac:RegistrationAddress>
+                     <cac:AddressLine>
+                        <cbc:Line><![CDATA[Calle S/n]]></cbc:Line>
+                     </cac:AddressLine>
+                     <cac:Country>
+                        <cbc:IdentificationCode>PE</cbc:IdentificationCode>
+                     </cac:Country>
+                  </cac:RegistrationAddress>
+               </cac:PartyLegalEntity>
+            </cac:Party>
+         </cac:AccountingCustomerParty><cac:PaymentTerms>
+                    <cbc:ID>FormaPago</cbc:ID>
+                    <cbc:PaymentMeansID>Contado</cbc:PaymentMeansID>
+                   </cac:PaymentTerms><cac:TaxTotal>
+            <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+            <cac:TaxSubtotal>
+               <cbc:TaxableAmount currencyID="PEN">0.00</cbc:TaxableAmount>
+               <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+               <cac:TaxCategory>
+                  <cac:TaxScheme>
+                     <cbc:ID>1000</cbc:ID>
+                     <cbc:Name>IGV</cbc:Name>
+                     <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                  </cac:TaxScheme>
+               </cac:TaxCategory>
+            </cac:TaxSubtotal><cac:TaxSubtotal>
+                  <cbc:TaxableAmount currencyID="PEN">10.00</cbc:TaxableAmount>
+                  <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+                  <cac:TaxCategory>
+                     <cbc:ID schemeID="UN/ECE 5305" schemeName="Tax Category Identifier" schemeAgencyName="United Nations Economic Commission for Europe">E</cbc:ID>
+                     <cac:TaxScheme>
+                        <cbc:ID schemeID="UN/ECE 5153" schemeAgencyID="6">9997</cbc:ID>
+                        <cbc:Name>EXO</cbc:Name>
+                        <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                     </cac:TaxScheme>
+                  </cac:TaxCategory>
+               </cac:TaxSubtotal></cac:TaxTotal>
+         <cac:LegalMonetaryTotal>
+            <cbc:LineExtensionAmount currencyID="PEN">10</cbc:LineExtensionAmount>
+            <cbc:TaxInclusiveAmount currencyID="PEN">10.00</cbc:TaxInclusiveAmount>
+            <cbc:PayableAmount currencyID="PEN">10.00</cbc:PayableAmount>
+         </cac:LegalMonetaryTotal><cac:InvoiceLine>
+               <cbc:ID>1</cbc:ID>
+               <cbc:InvoicedQuantity unitCode="ZZ">1</cbc:InvoicedQuantity>
+               <cbc:LineExtensionAmount currencyID="PEN">10.00</cbc:LineExtensionAmount>
+               <cac:PricingReference><cac:AlternativeConditionPrice>
+                     <cbc:PriceAmount currencyID="PEN">10.00</cbc:PriceAmount>
+                     <cbc:PriceTypeCode>01</cbc:PriceTypeCode>
+                  </cac:AlternativeConditionPrice></cac:PricingReference>
+               <cac:TaxTotal>
+                  <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+                  <cac:TaxSubtotal>
+                     <cbc:TaxableAmount currencyID="PEN">10.00</cbc:TaxableAmount>
+                     <cbc:TaxAmount currencyID="PEN">0.00</cbc:TaxAmount>
+                     <cac:TaxCategory>
+                        <cbc:Percent>18.00</cbc:Percent>
+                        <cbc:TaxExemptionReasonCode>20</cbc:TaxExemptionReasonCode>
+                        <cac:TaxScheme>
+                           <cbc:ID>9997</cbc:ID>
+                           <cbc:Name>EXO</cbc:Name>
+                           <cbc:TaxTypeCode>VAT</cbc:TaxTypeCode>
+                        </cac:TaxScheme>
+                     </cac:TaxCategory>
+                  </cac:TaxSubtotal></cac:TaxTotal><cac:Item>
+                      <cbc:Description><![CDATA[Producto Prueba]]></cbc:Description>
+                      <cac:SellersItemIdentification>
+                         <cbc:ID>26</cbc:ID>
+                      </cac:SellersItemIdentification>
+                   </cac:Item><cac:Price>
+                  <cbc:PriceAmount currencyID="PEN">10.00</cbc:PriceAmount>
+               </cac:Price>
+            </cac:InvoiceLine></Invoice>
