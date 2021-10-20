@@ -1,0 +1,2 @@
+2021-10-20 10:07:36[UTC -5] [ip] ::1 [lugar] Excepcion No Manejada [texto] [LEVEL]: 8 IN C:\xampp\htdocs\balconcito\core\session.php: 14[MESSAGGE]Undefined index: app
+
