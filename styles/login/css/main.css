@@ -185,7 +185,7 @@ iframe {
   background: orange;
   background: -webkit-linear-gradient(bottom, orange, orangered);
   background: -o-linear-gradient(bottom, orange, orangered);
-  background: -moz-linear-gradient(bottom, orange, orangered);
+  background: -moz-linear-gradient(bottom, grey, skyblue);
   background: linear-gradient(bottom, orange, orangered);
   opacity: 0.9;
 }

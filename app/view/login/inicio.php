@@ -26,11 +26,11 @@
 </head>
 <body>
 <div class="limiter">
-    <div class="container-login100" style="background-image: url('<?=_SERVER_ . _STYLES_LOGIN_;?>images/fondo_gaia.jpg');">
+    <div class="container-login100" style="background-image: url('<?=_SERVER_ . _STYLES_LOGIN_;?>images/fondo_balconcito.jpg');">
         <div class="wrap-login100 p-t-190 p-b-30">
             <div class="login100-form validate-form">
-                <div class="login100-form-avatar">
-                    <img src="<?=_SERVER_;?>media/logo/logo_gaia.png" alt="Logo de Proyecto">
+                <div class="login100-form-avatar" style="line-height: 8; !important;">
+                    <img src="<?=_SERVER_;?>media/logo/logo_balconcito.png" alt="Logo de Proyecto">
                 </div>
 
                 <span class="login100-form-title p-t-20 p-b-45"><?=_TITLE_;?></span>

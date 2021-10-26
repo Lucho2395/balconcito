@@ -161,7 +161,7 @@
             <div class="container-fluid">
                 <div class="header-mobile-inner">
                     <a class="logo" href="<?= _SERVER_;?>">
-                        <img src="<?= _SERVER_;?>media/logo/logo_gaia.png" style="width: 100px;" alt="Logo" />
+                        <img src="<?= _SERVER_;?>media/logo/logo_balconcito.png" style="width: 100px;" alt="Logo" />
                     </a>
                     <button class="hamburger hamburger--slider" type="button">
                             <span class="hamburger-box">
@@ -256,7 +256,7 @@
     <aside class="menu-sidebar d-none d-lg-block">
         <div class="logo">
             <a href="#">
-                <img src="<?= _SERVER_;?>media/logo/logo_gaia.png" style="width: 75px; margin-top: 5px; margin-left: 60px" alt="<?= _TITLE_;?>" />
+                <img src="<?= _SERVER_;?>media/logo/logo_balconcito.png" style="width: 75px; margin-top: 5px; margin-left: 60px" alt="<?= _TITLE_;?>" />
             </a>
         </div>
         <div class="menu-sidebar__content js-scrollbar1">

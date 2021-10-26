@@ -27,7 +27,7 @@ if($filas_detalle==1 || $filas_detalle==2){
 $pdf->AddPage();
 //CABECERA DEL ARCHIVO
 //Logo
-$pdf->Image('media/logo/logo_gaia.jpeg',31.1,6, '17', '17', 'JPEG');
+$pdf->Image('media/logo/logo_balconcito.png',31.1,6, '17', '17', 'PNG');
 $pdf->Ln(15);
 
 $pdf->SetFont('Helvetica','',9);
@@ -37,12 +37,12 @@ $pdf->Cell(60,4,"$dato_venta->empresa_nombre",0,1,'C');
 //$pdf->Cell(60,4, "DESARROLLO HUMANO",0,1,'C',0);
 $pdf->SetFont('Helvetica','',7);
 //$pdf->Cell(60,4,"$dato_pago->empresa_nombre",0,1,'C');
-$pdf->Cell(60,4, "GAIA RESTAURANT CEVICHERIA",0,1,'C',0);
+$pdf->Cell(60,4, "BALCONCITO RESTAURANT",0,1,'C',0);
 //$pdf->Cell(60,4, "DESARROLLO HUMANO",0,1,'C',0);
 $pdf->Cell(60,4,"RUC Nº $dato_venta->empresa_ruc",0,1,'C');
 $pdf->SetFont('Helvetica','',7);
 //$pdf->Cell(60,4,"$dato_pago->empresa_domiciliofiscal",0,1,'C');
-$pdf->Cell(60,4,"CAL. LOS FRUTALES B-1",0,1,'C');
+$pdf->Cell(60,4,"AV. GUARDIA CIVIL 1331",0,1,'C');
 $pdf->Cell(60,4,"Loreto - Maynas - San Juan Bautista",0,1,'C');
 //$pdf->Cell(60,4,"Tel. $dato_venta->empresa_telefono1",0,1,'C');
 //$pdf->Cell(60,4,"E-mail: $dato_venta->empresa_correo",0,1,'C');

@@ -41,7 +41,7 @@ $printer->setJustification(Printer::JUSTIFY_CENTER);
 	el logo
 */
 try{
-    $logo = EscposImage::load("media/logo/logo_gaia_ticket.png", false);
+    $logo = EscposImage::load("media/logo/logo_balconcito_ticket.png", false);
     $printer->bitImage($logo);
 }catch(Exception $e){/*No hacemos nada si hay error*/}
 /*
