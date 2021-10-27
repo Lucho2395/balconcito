@@ -1460,13 +1460,13 @@ class Pedido
         return $result;
     }
 
-    public function verificar_password($user, $pass){
+    public function verificar_password($user, $id_rol_2, $pass){
         $result = false;
         try{
             $sql = "Select usuario_contrasenha from usuarios 
-                    where id_rol = ? and usuario_estado = 1";
+                    where id_rol = ? OR id_rol = ? and usuario_estado = 1";
             $stm = $this->pdo->prepare($sql);
-            $stm->execute([$user]);
+            $stm->execute([$user, $id_rol_2]);
             $info = $stm->fetch();
             if(password_verify($pass, $info->usuario_contrasenha)){
                 $result = true;

@@ -1502,7 +1502,8 @@ class PedidoController
 //                if($this->pedido->verificar_password($this->encriptar->desencriptar($_SESSION['_n'],_FULL_KEY_), $_POST['password'])) {
                 if($ok_data) {
                     $id_rol = 3;
-                    if($this->pedido->verificar_password($id_rol, $_POST['password'])){
+                    $id_rol_2 = 4;
+                    if($this->pedido->verificar_password($id_rol, $id_rol_2, $_POST['password'])){
                         $id_comanda_detalle = $_POST['id_comanda_detalle'];
                         $comanda_detalle_eliminacion = $_POST['comanda_detalle_eliminacion'];
                         $fecha_eliminacion = date('Y-m-d H:i:s');
