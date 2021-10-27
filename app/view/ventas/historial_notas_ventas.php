@@ -118,18 +118,20 @@
                                             <td style="text-align: left">
                                                 <a type="button" title="Ver detalle" class="btn btn-sm btn-primary" style="color: white" href="<?php echo _SERVER_. 'Ventas/ver_detalle_venta/' . $al->id_venta;?>" ><i class="fa fa-eye ver_detalle"></i></a>
                                                 <?php
-                                                $hoy = date('Y-m-d');
-                                                $fecha_venta = date('Y-m-d', strtotime($al->venta_fecha));
-                                                if($fecha_venta == $hoy ){
-                                                    if($al->id_mesa != "-2"){ ?>
-                                                        <a  type="button" title="Editar Nota de Venta" class="btn btn-sm btn-success" style="color: white" href="<?php echo _SERVER_. 'Ventas/editar_nota_venta/' . $al->id_venta;?>" ><i class="fa fa-edit ver_editar"></i></a>
-                                                        <?php
-                                                    }/*else{*/?><!--
+                                                if($id_rol == 2 || $id_rol == 3){
+                                                    $hoy = date('Y-m-d');
+                                                    $fecha_venta = date('Y-m-d', strtotime($al->venta_fecha));
+                                                    if($fecha_venta == $hoy ){
+                                                        if($al->id_mesa != "-2"){ ?>
+                                                            <a  type="button" title="Editar Nota de Venta" class="btn btn-sm btn-success" style="color: white" href="<?php echo _SERVER_. 'Ventas/editar_nota_venta/' . $al->id_venta;?>" ><i class="fa fa-edit ver_editar"></i></a>
+                                                            <?php
+                                                        }/*else{*/?><!--
                                                         <a target="_blank" type="button" title="Editar Nota de Venta por pedido" class="btn btn-sm btn-success" style="color: white" href="<?php /*echo _SERVER_. 'Ventas/editar_nota_venta_x_comanda/' . $al->id_venta;*/?>" ><i class="fa fa-edit ver_editar"></i></a>
                                                     --><?php
-/*                                                    }*/
-                                                    ?>
-                                                    <?php
+                                                        /*                                                    }*/
+                                                        ?>
+                                                        <?php
+                                                    }
                                                 }
                                                 ?>
                                                 <a type="button" title="Anular" id="btn_anular<?= $al->id_venta;?>" class="btn btn-sm btn-danger btne" style="color: white" onclick="preguntar('¿Está seguro que desea anular este Comprobante?','anular_boleta_cambiarestado','Si','No',<?= $al->id_venta;?>, '1')" ><i class="fa fa-ban"></i></a>

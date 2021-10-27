@@ -184,6 +184,7 @@ class VentasController
             $this->nav = new Navbar();
             $navs = $this->nav->listar_menus($this->encriptar->desencriptar($_SESSION['ru'],_FULL_KEY_));
 
+            $id_rol = $this->encriptar->desencriptar($_SESSION['ru'],_FULL_KEY_);
             $filtro = false;
             $fecha_ini = date('Y-m-d');
             $fecha_fin = date('Y-m-d');
