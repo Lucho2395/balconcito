@@ -40,10 +40,10 @@ $printer->setJustification(Printer::JUSTIFY_CENTER);
 	Intentaremos cargar e imprimir
 	el logo
 */
-try{
+/*try{
     $logo = EscposImage::load("media/logo/logo_balconcito_ticket.png", false);
     $printer->bitImage($logo);
-}catch(Exception $e){/*No hacemos nada si hay error*/}
+}catch(Exception $e){*//*No hacemos nada si hay error}*/
 /*
 	Ahora vamos a imprimir un encabezado
 */

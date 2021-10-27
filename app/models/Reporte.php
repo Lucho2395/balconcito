@@ -474,7 +474,7 @@ class Reporte
     public function reporte_ingresos_x_caja($id_caja, $fecha_ini_caja, $fecha_fin_caja){
         try{
             $sql = 'select sum(vdp.venta_detalle_pago_monto) total from ventas v inner join ventas_detalle_pagos vdp on v.id_venta = vdp.id_venta 
-                    inner join caja c on v.id_caja_numero = c.id_caja_numero where c.id_caja = ? and v.venta_fecha between ? and ?';
+                    inner join caja c on v.id_caja_numero = c.id_caja_numero where c.id_caja_numero = ? and v.venta_fecha between ? and ?';
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$id_caja, $fecha_ini_caja, $fecha_fin_caja]);
             $return = $stm->fetch();

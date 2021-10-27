@@ -930,11 +930,11 @@ class PedidoController
                             }
                         }
                         //INICIO - IMPRESION DE TICKET DE COMANDA
-                        //$id_comanda = $id_comanda;
-                        //$comanda = $this->pedido->listar_comanda_x_id($id_comanda);
-                        //$detalle_comanda =$this->pedido->listar_detalle_x_comanda_x_fecha($id_comanda, $fecha);
+                        $id_comanda = $id_comanda;
+                        $comanda = $this->pedido->listar_comanda_x_id($id_comanda);
+                        $detalle_comanda =$this->pedido->listar_detalle_x_comanda_x_fecha($id_comanda, $fecha);
 
-                        //require _VIEW_PATH_ . 'pedido/ticket_comanda.php';
+                        require _VIEW_PATH_ . 'pedido/ticket_comanda.php';
                         //FIN - IPRESION DE TICKET DE COMANDA
                     }
                 }

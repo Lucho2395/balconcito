@@ -84,7 +84,7 @@ class UsuarioController{
             $ok_data = $this->validar->validar_parametro('usuario_nickname', 'POST',true,$ok_data,16,'texto',0);
             $ok_data = $this->validar->validar_parametro('usuario_contrasenha', 'POST',true,$ok_data,70,'texto',0);
             $ok_data = $this->validar->validar_parametro('usuario_email', 'POST',false,$ok_data,60,'email',0);
-            $ok_data = $this->validar->validar_parametro('usuario_imagen', 'FILES',false,$ok_data,0,['jpg','png'],['jpg','png']);
+            $ok_data = $this->validar->validar_parametro('usuario_imagen', 'FILES',false,$ok_data,0,['jpg','png','jpeg'],['jpg','png','jpeg']);
             $ok_data = $this->validar->validar_parametro('usuario_estado', 'POST',true,$ok_data,1,'numero',0);
             //Validacion de datos
             if($ok_data){
@@ -166,7 +166,7 @@ class UsuarioController{
             $ok_data = $this->validar->validar_parametro('id_rol_e', 'POST',true,$ok_data,11,'numero',0);
             $ok_data = $this->validar->validar_parametro('usuario_nickname_e', 'POST',true,$ok_data,16,'texto',0);
             $ok_data = $this->validar->validar_parametro('usuario_email_e', 'POST',false,$ok_data,60,'email',0);
-            $ok_data = $this->validar->validar_parametro('usuario_imagen_e', 'FILES',false,$ok_data,0,['jpg','png'],['jpg','png']);
+            //$ok_data = $this->validar->validar_parametro('usuario_imagen_e', 'FILES',false,$ok_data,0,['jpg','png','jpeg'],['jpg','png','jpeg']);
             $ok_data = $this->validar->validar_parametro('usuario_estado_e', 'POST',true,$ok_data,1,'numero',0);
             //Validamos el id_menu y menu_estado, en caso este sea declarado para editar personas
             $ok_data = $this->validar->validar_parametro('id_usuario', 'POST',false,$ok_data,11,'numero',0);
