@@ -1,7 +1,7 @@
-var urlweb = "http://localhost:8080/restgaia/";
-var ruta_web = "http://localhost:8080/restgaia/";
-//var ruta_web = "http://localhost:8081/restgaia/";
-//var ruta_web = "http://192.168.43.54:8081/restgaia/";
+var urlweb = "http://localhost:8081/balconcito/";
+var ruta_web = "http://localhost:8081/balconcito/";
+//var ruta_web = "http://localhost:8081/balconcito/";
+//var ruta_web = "http://192.168.43.54:8081/balconcito/";
 
 //Función que hizo Carlitos que no sé bien para que sirve pero la dejo ahí por si las moscas
 function getParameterByName(name) {
