@@ -361,7 +361,7 @@ class Pedido
 
     public function jalar_valor($id_comanda){
         try{
-            $sql = "select sum(comanda_detalle_total) total from comanda_detalle where id_comanda = ?";
+            $sql = "select sum(comanda_detalle_total) total from comanda_detalle where id_comanda = ? and comanda_detalle_estado = 1";
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$id_comanda]);
             $result = $stm->fetch();
@@ -396,11 +396,12 @@ class Pedido
         }
     }
 
-    public function eliminar_comanda_detalle($id_comanda_detalle){
+    public function eliminar_comanda_detalle($comanda_detalle_eliminacion,$fecha_eliminacion,$id_comanda_detalle){
         try{
-            $sql = 'delete from comanda_detalle where id_comanda_detalle = ?';
+            $sql = 'update comanda_detalle set comanda_detalle_eliminacion = ?, comanda_detalle_fecha_eliminacion = ?, comanda_detalle_estado = 0 
+                    where id_comanda_detalle = ?';
             $stm = $this->pdo->prepare($sql);
-            $stm->execute([$id_comanda_detalle]);
+            $stm->execute([$comanda_detalle_eliminacion,$fecha_eliminacion,$id_comanda_detalle]);
             return 1;
         } catch (Throwable $e){
             $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
@@ -467,7 +468,8 @@ class Pedido
             $sql = 'select * from comanda c inner join comanda_detalle cd on c.id_comanda = cd.id_comanda inner join mesas m on c.id_mesa = m.id_mesa
                     inner join productos p on cd.id_producto = p.id_producto inner join grupos g on p.id_grupo = g.id_grupo 
                     inner join producto_precio pp on p.id_producto = pp.id_producto
-                    where c.id_mesa = ? and c.id_comanda = ? and pp.producto_precio_estado=1 order by cd.comanda_detalle_fecha_registro asc';
+                    where c.id_mesa = ? and c.id_comanda = ? and pp.producto_precio_estado=1 and cd.comanda_detalle_estado = 1
+                    order by cd.comanda_detalle_fecha_registro asc';
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$id_mesa,$id_comanda]);
             $result = $stm->fetchAll();
@@ -477,6 +479,24 @@ class Pedido
         }
         return $result;
     }
+
+    public function listar_pedidos_eliminados($fecha_i, $fecha_f){
+        try{
+            $sql = 'select * from comanda c inner join comanda_detalle cd on c.id_comanda = cd.id_comanda inner join mesas m on c.id_mesa = m.id_mesa
+                    inner join productos p on cd.id_producto = p.id_producto inner join grupos g on p.id_grupo = g.id_grupo 
+                    inner join producto_precio pp on p.id_producto = pp.id_producto
+                    where date(c.comanda_fecha_registro) between ? and ? and pp.producto_precio_estado=1 and cd.comanda_detalle_estado = 0
+                    order by date(cd.comanda_detalle_fecha_eliminacion) desc';
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute([$fecha_i, $fecha_f]);
+            $result = $stm->fetchAll();
+        } catch (Exception $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = [];
+        }
+        return $result;
+    }
+
     public function listar_pedidos($fecha_i, $fecha_f){
         try{
             $sql = 'select * from comanda c inner join mesas m on c.id_mesa = m.id_mesa inner join usuarios u on c.id_usuario = u.id_usuario
@@ -1379,7 +1399,7 @@ class Pedido
 
     public function listar_detalles_x_pedido($id_comanda){
         try{
-            $sql = "select * from comanda_detalle where id_comanda = ?";
+            $sql = "select * from comanda_detalle where id_comanda = ? and comanda_detalle_estado = 1";
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$id_comanda]);
             $result = $stm->fetchAll();
@@ -1443,7 +1463,8 @@ class Pedido
     public function verificar_password($user, $pass){
         $result = false;
         try{
-            $sql = "Select usuario_contrasenha from usuarios where usuario_nickname = ? and usuario_estado = 1";
+            $sql = "Select usuario_contrasenha from usuarios 
+                    where id_rol = ? and usuario_estado = 1";
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$user]);
             $info = $stm->fetch();

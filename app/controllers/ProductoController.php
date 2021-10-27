@@ -415,4 +415,34 @@ class ProductoController
     }
 
 
+    public function sumar_stock_nuevo(){
+        //Código de error general
+        $result = 2;
+        //Mensaje a devolver en caso de hacer consulta por app
+        $message = 'OK';
+        try{
+            $ok_data = true;
+            //Validacion de datos
+            if($ok_data) {
+
+                $id_receta = $_POST['id_receta_modal'];
+                $asignar_nuevo = $_POST['asignar_stock'];
+                //INICIO - OBTENEMOS INFORMACION
+                $lista_recurso = $this->producto->jalar_recurso_sede_desde_receta($id_receta);
+                $id_recurso_sede = $lista_recurso->id_recurso_sede;
+                $result = $this->producto->sumar_stock_adicional($id_recurso_sede, $asignar_nuevo);
+            }else {
+                //Código 6: Integridad de datos erronea
+                $result = 6;
+                $message = "Integridad de datos fallida. Algún parametro se está enviando mal";
+            }
+        }catch (Exception $e){
+            //Registramos el error generado y devolvemos el mensaje enviado por PHP
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $message = $e->getMessage();
+        }
+        //Retornamos el json
+        echo json_encode(array("result" => array("code" => $result, "message" => $message)));
+    }
+
 }

@@ -162,6 +162,40 @@
     </div>
 </div>
 
+<div class="modal fade" id="eliminar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 60% !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Agregar Pedido</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <input type="hidden" id="id_comanda_detalle_eliminar" name="id_comanda_detalle_eliminar">
+                                <input type="hidden" id="id_comanda_eliminar" name="id_comanda_eliminar">
+                                <input type="hidden" id="id_mesa_eliminar" name="id_mesa_eliminar">
+                                <label class="col-form-label">Motivo</label>
+                                <textarea class="form-control" name="comanda_detalle_eliminacion" id="comanda_detalle_eliminacion" cols="30" rows="2" placeholder="Ingrese Motivo..."></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label for="">Contraseña</label>
+                            <input class="form-control" type="password" id="password" name="password" placeholder="Contraseña...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-success" onclick="preguntar('¿Está seguro que desea eliminar este pedido?','eliminar_comanda_detalle_','Si','No')" id="btn-cambiar_mesa"><i class="fa fa-save fa-sm text-white-50"></i> Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="modal fade" id="ventas" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document" style="max-width: 80% !important;">
@@ -306,16 +340,8 @@
                                             <label for="tipo_igv">Tipo Venta</label><br>
                                             <select class="form-control" id="tipo_venta" name="tipo_venta" onchange="Consultar_serie()">
                                                 <!--<option value="">Seleccionar...</option>-->
-                                                <?php
-                                                $consultar_existe_nota_venta = $this->pedido->consultar_existe_en_nota_venta_detalle($dato_pedido->id_comanda);
-                                                (count($consultar_existe_nota_venta) != count($pedidos))?$en=true:$en=false;
-                                                if($en){
-                                                    ?>
-                                                    <option value="20">Nota de Venta</option>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <option value="03" selected>BOLETA</option>
+                                                <option value="20" selected>Nota de Venta</option>
+                                                <option value="03">BOLETA</option>
                                                 <option value="01">FACTURA</option>
                                                 <!--<option value= "07">NOTA DE CREDITO</option>
                                                 <option value= "08">NOTA DE DEBITO</option>-->
@@ -569,8 +595,8 @@
                                                 <?php
                                                 if($p->comanda_detalle_estado_venta == 0){
                                                 ?>
-                                                <a class="btn btn-danger" type="button" id="btn-eliminar_pedido" onclick="preguntar('¿Está seguro que desea eliminar este pedido?','eliminar_comanda_detalle','Si','No',<?= $p->id_comanda_detalle;?>,'<?= $p->id_comanda?>','<?= $p->id_mesa?>')" data-toggle="tooltip" title='Eliminar'><i class='fa fa-times text-white eliminar margen'></i></a>
-                                                <?php
+                                                    <a class="btn btn-danger" type="button" id="btn-eliminar_pedido" onclick="cargar_valores(<?= $p->id_comanda_detalle;?>,'<?= $p->id_comanda?>','<?= $p->id_mesa?>')" data-toggle="modal" data-target="#eliminar" title='Eliminar'><i class='fa fa-times text-white eliminar margen'></i></a>
+                                                    <?php
                                                 }
                                                 else{
                                                 ?>
@@ -647,6 +673,16 @@
         partir_pago();
     });
     var contenido_pedido = "";
+
+    function ir_caja(){
+        location.href = urlweb +  'Admin/inicio';
+    }
+
+    function cargar_valores(id_comanda_detalle,id_comanda,id_mesa){
+        $("#id_comanda_detalle_eliminar").val(id_comanda_detalle);
+        $("#id_comanda_eliminar").val(id_comanda);
+        $("#id_mesa_eliminar").val(id_mesa);
+    }
 
     function ticket_pedido(id){
         var boton = 'imprimir_ticket';

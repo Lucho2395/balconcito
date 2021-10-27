@@ -109,7 +109,6 @@
                             <div class="col-lg-6 col-xs-6 col-sm-6 col-md-6">
                                 <label>Turno:</label>
                                 <select class="form-control" id= "id_turno" name="id_turno">
-                                    <option value="">Elegir Turno</option>
                                     <?php
                                     foreach($turnos as $l){
                                         ?>
@@ -122,7 +121,6 @@
                             <div class="col-lg-6 col-xs-6 col-sm-6 col-md-6">
                                 <label>Caja:</label>
                                 <select class="form-control" id= "id_caja_numero" name="id_caja_numero">
-                                    <option value="">Elegir Caja</option>
                                     <?php
                                     foreach($caja as $l){
                                         ?>
@@ -136,7 +134,7 @@
                         <div class="row">
                             <div class="col-lg-3"></div>
                             <div class="col-lg-6" style="text-align: center">
-                                <label >MONTO APERTURA CAJA - Para HOY <?php echo date('Y-m-d');?></label>
+                                <label >MONTO APERTURA CAJA - Para HOY <?php echo date('d-m-Y');?></label>
                                 <input type="text" class="form-control" id="caja_apertura" name="caja_apertura" onkeyup="validar_numeros_decimales_dos(this.id)" >
                             </div>
                         </div>
@@ -150,19 +148,78 @@
                         </div>
                         <?php
                         } else {
-                            $monto_apertura = $this->caja->mostrar_valor_apertura($fecha_hoy);
-                            $jalar_turno = $this->caja->jalar_turno($fecha_hoy);
+                            $monto_apertura = $this->caja->mostrar_valor_apertura($fecha_hoy,$id_usuario);
+                            $valor_por_caja = $this->caja->valor_por_caja($listar_ultima_caja->id_caja);
+                            $jalar_turno = $this->caja->jalar_turno($listar_ultima_caja->id_caja);
                             ?>
-                            <br> <br> <br> <br> <br> <br> <br>
-
-                                <div class="col-lg-12" style="text-align: center;">
-                                    <h3>El Monto de Apertura de Caja para Hoy Día es: S/. <?php echo $monto_apertura;?></h3>
-                                    <h3>Correspondiente al : <?php echo $jalar_turno;?></h3>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5">
+                                    <h3>► CAJA :</h3>
                                 </div>
+                                <div class="col-md-2">
+                                    <h3 style=""><?= $valor_por_caja->caja_numero_nombre;?></h3>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5">
+                                    <h3>► TURNO :</h3>
+                                </div>
+                                <div class="col-md-2">
+                                    <h3 style=""><?= $jalar_turno;?></h3>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5">
+                                    <h3>► USUARIO :</h3>
+                                </div>
+                                <div class="col-md-2">
+                                    <h3 style=""><?php echo $usuario->usuario_nickname;?></h3>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-5">
+                                    <h3 style="">► El Monto de Apertura para Hoy es :</h3>
+                                </div>
+                                <div class="col-md-2">
+                                    <h3 style=""> S/.<?= $valor_por_caja->caja_apertura ?? 0?></h3>
+                                </div>
+                                <div class="col-md-3"></div>
+                            </div>
+                            <br>
                             <?php
+                            $buscar_cierre_caja = $this->caja->buscar_cierre_caja($listar_ultima_caja->id_caja,$id_usuario);
+                            if(empty($buscar_cierre_caja)){
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-2"></div>
+                                    <div class="col-lg-5">
+                                        <h3>► Cierre de Caja :</h3>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <input class="form-control" type="text" id="caja_monto_cierre" name="caja_monto_cierre" onkeyup="validar_numeros_decimales_dos(this.id)">
+                                    </div>
+                                    <div class="col-lg-4"></div>
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-lg-12" style="text-align: center">
+                                        <button id="btn-agregar-cierre"  class="btn btn-success" onclick="guardar_cierre_caja(<?= $listar_ultima_caja->id_caja;?>)"><i class="fa fa-save"></i> Guardar Cierre</button>
+                                    </div>
+                                </div>
+                                <?php
+                            }
                         }
                         ?>
                     </div>
+
 
                     <div class="col-lg-6" style="text-align: center; padding-bottom:5px; "><h2>Recordatorio de Insumos </h2>
                         <div class="col-lg-12">
@@ -215,320 +272,6 @@
                     </div>
                     </div>
                 </div>
-                <!--<div class="row">
-                    <div class="col-lg-6">
-                        <div class="au-card recent-report">
-                            <div class="au-card-inner">
-                                <h3 class="title-2">recent reports</h3>
-                                <div class="chart-info">
-                                    <div class="chart-info__left">
-                                        <div class="chart-note">
-                                            <span class="dot dot--blue"></span>
-                                            <span>products</span>
-                                        </div>
-                                        <div class="chart-note mr-0">
-                                            <span class="dot dot--green"></span>
-                                            <span>services</span>
-                                        </div>
-                                    </div>
-                                    <div class="chart-info__right">
-                                        <div class="chart-statis">
-                                                        <span class="index incre">
-                                                            <i class="zmdi zmdi-long-arrow-up"></i>25%</span>
-                                            <span class="label">products</span>
-                                        </div>
-                                        <div class="chart-statis mr-0">
-                                                        <span class="index decre">
-                                                            <i class="zmdi zmdi-long-arrow-down"></i>10%</span>
-                                            <span class="label">services</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="recent-report__chart">
-                                    <canvas id="recent-rep-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="au-card chart-percent-card">
-                            <div class="au-card-inner">
-                                <h3 class="title-2 tm-b-5">char by %</h3>
-                                <div class="row no-gutters">
-                                    <div class="col-xl-6">
-                                        <div class="chart-note-wrap">
-                                            <div class="chart-note mr-0 d-block">
-                                                <span class="dot dot--blue"></span>
-                                                <span>products</span>
-                                            </div>
-                                            <div class="chart-note mr-0 d-block">
-                                                <span class="dot dot--red"></span>
-                                                <span>services</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-xl-6">
-                                        <div class="percent-chart">
-                                            <canvas id="percent-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                            <div class="au-card-title" style="background-image:url('images/bg-title-01.jpg');">
-                                <div class="bg-overlay bg-overlay--blue"></div>
-                                <h3>
-                                    <i class="zmdi zmdi-account-calendar"></i>26 April, 2018</h3>
-                                <button class="au-btn-plus">
-                                    <i class="zmdi zmdi-plus"></i>
-                                </button>
-                            </div>
-                            <div class="au-task js-list-load">
-                                <div class="au-task__title">
-                                    <p>Tasks for John Doe</p>
-                                </div>
-                                <div class="au-task-list js-scrollbar3">
-                                    <div class="au-task__item au-task__item--danger">
-                                        <div class="au-task__item-inner">
-                                            <h5 class="task">
-                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                            </h5>
-                                            <span class="time">10:00 AM</span>
-                                        </div>
-                                    </div>
-                                    <div class="au-task__item au-task__item--warning">
-                                        <div class="au-task__item-inner">
-                                            <h5 class="task">
-                                                <a href="#">Create new task for Dashboard</a>
-                                            </h5>
-                                            <span class="time">11:00 AM</span>
-                                        </div>
-                                    </div>
-                                    <div class="au-task__item au-task__item--primary">
-                                        <div class="au-task__item-inner">
-                                            <h5 class="task">
-                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                            </h5>
-                                            <span class="time">02:00 PM</span>
-                                        </div>
-                                    </div>
-                                    <div class="au-task__item au-task__item--success">
-                                        <div class="au-task__item-inner">
-                                            <h5 class="task">
-                                                <a href="#">Create new task for Dashboard</a>
-                                            </h5>
-                                            <span class="time">03:30 PM</span>
-                                        </div>
-                                    </div>
-                                    <div class="au-task__item au-task__item--danger js-load-item">
-                                        <div class="au-task__item-inner">
-                                            <h5 class="task">
-                                                <a href="#">Meeting about plan for Admin Template 2018</a>
-                                            </h5>
-                                            <span class="time">10:00 AM</span>
-                                        </div>
-                                    </div>
-                                    <div class="au-task__item au-task__item--warning js-load-item">
-                                        <div class="au-task__item-inner">
-                                            <h5 class="task">
-                                                <a href="#">Create new task for Dashboard</a>
-                                            </h5>
-                                            <span class="time">11:00 AM</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="au-task__footer">
-                                    <button class="au-btn au-btn-load js-load-btn">load more</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <div class="au-card au-card--no-shadow au-card--no-pad m-b-40">
-                            <div class="au-card-title" style="background-image:url('images/bg-title-02.jpg');">
-                                <div class="bg-overlay bg-overlay--blue"></div>
-                                <h3>
-                                    <i class="zmdi zmdi-comment-text"></i>New Messages</h3>
-                                <button class="au-btn-plus">
-                                    <i class="zmdi zmdi-plus"></i>
-                                </button>
-                            </div>
-                            <div class="au-inbox-wrap js-inbox-wrap">
-                                <div class="au-message js-list-load">
-                                    <div class="au-message__noti">
-                                        <p>You Have
-                                            <span>2</span>
-
-                                            new messages
-                                        </p>
-                                    </div>
-                                    <div class="au-message-list">
-                                        <div class="au-message__item unread">
-                                            <div class="au-message__item-inner">
-                                                <div class="au-message__item-text">
-                                                    <div class="avatar-wrap">
-                                                        <div class="avatar">
-                                                            <img src="images/icon/avatar-02.jpg" alt="John Smith">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5 class="name">John Smith</h5>
-                                                        <p>Have sent a photo</p>
-                                                    </div>
-                                                </div>
-                                                <div class="au-message__item-time">
-                                                    <span>12 Min ago</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="au-message__item unread">
-                                            <div class="au-message__item-inner">
-                                                <div class="au-message__item-text">
-                                                    <div class="avatar-wrap online">
-                                                        <div class="avatar">
-                                                            <img src="images/icon/avatar-03.jpg" alt="Nicholas Martinez">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5 class="name">Nicholas Martinez</h5>
-                                                        <p>You are now connected on message</p>
-                                                    </div>
-                                                </div>
-                                                <div class="au-message__item-time">
-                                                    <span>11:00 PM</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="au-message__item">
-                                            <div class="au-message__item-inner">
-                                                <div class="au-message__item-text">
-                                                    <div class="avatar-wrap online">
-                                                        <div class="avatar">
-                                                            <img src="images/icon/avatar-04.jpg" alt="Michelle Sims">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5 class="name">Michelle Sims</h5>
-                                                        <p>Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                                <div class="au-message__item-time">
-                                                    <span>Yesterday</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="au-message__item">
-                                            <div class="au-message__item-inner">
-                                                <div class="au-message__item-text">
-                                                    <div class="avatar-wrap">
-                                                        <div class="avatar">
-                                                            <img src="images/icon/avatar-05.jpg" alt="Michelle Sims">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5 class="name">Michelle Sims</h5>
-                                                        <p>Purus feugiat finibus</p>
-                                                    </div>
-                                                </div>
-                                                <div class="au-message__item-time">
-                                                    <span>Sunday</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="au-message__item js-load-item">
-                                            <div class="au-message__item-inner">
-                                                <div class="au-message__item-text">
-                                                    <div class="avatar-wrap online">
-                                                        <div class="avatar">
-                                                            <img src="images/icon/avatar-04.jpg" alt="Michelle Sims">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5 class="name">Michelle Sims</h5>
-                                                        <p>Lorem ipsum dolor sit amet</p>
-                                                    </div>
-                                                </div>
-                                                <div class="au-message__item-time">
-                                                    <span>Yesterday</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="au-message__item js-load-item">
-                                            <div class="au-message__item-inner">
-                                                <div class="au-message__item-text">
-                                                    <div class="avatar-wrap">
-                                                        <div class="avatar">
-                                                            <img src="images/icon/avatar-05.jpg" alt="Michelle Sims">
-                                                        </div>
-                                                    </div>
-                                                    <div class="text">
-                                                        <h5 class="name">Michelle Sims</h5>
-                                                        <p>Purus feugiat finibus</p>
-                                                    </div>
-                                                </div>
-                                                <div class="au-message__item-time">
-                                                    <span>Sunday</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="au-message__footer">
-                                        <button class="au-btn au-btn-load js-load-btn">load more</button>
-                                    </div>
-                                </div>
-                                <div class="au-chat">
-                                    <div class="au-chat__title">
-                                        <div class="au-chat-info">
-                                            <div class="avatar-wrap online">
-                                                <div class="avatar avatar--small">
-                                                    <img src="images/icon/avatar-02.jpg" alt="John Smith">
-                                                </div>
-                                            </div>
-                                            <span class="nick">
-                                                            <a href="#">John Smith</a>
-                                                        </span>
-                                        </div>
-                                    </div>
-                                    <div class="au-chat__content">
-                                        <div class="recei-mess-wrap">
-                                            <span class="mess-time">12 Min ago</span>
-                                            <div class="recei-mess__inner">
-                                                <div class="avatar avatar--tiny">
-                                                    <img src="images/icon/avatar-02.jpg" alt="John Smith">
-                                                </div>
-                                                <div class="recei-mess-list">
-                                                    <div class="recei-mess">Lorem ipsum dolor sit amet, consectetur adipiscing elit non iaculis</div>
-                                                    <div class="recei-mess">Donec tempor, sapien ac viverra</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="send-mess-wrap">
-                                            <span class="mess-time">30 Sec ago</span>
-                                            <div class="send-mess__inner">
-                                                <div class="send-mess-list">
-                                                    <div class="send-mess">Lorem ipsum dolor sit amet, consectetur adipiscing elit non iaculis</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="au-chat-textfield">
-                                        <form class="au-form-icon">
-                                            <input class="au-input au-input--full au-input--h65" type="text" placeholder="Type a message">
-                                            <button class="au-input-icon">
-                                                <i class="zmdi zmdi-camera"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>-->
             </div>
         </div>
         <?php
@@ -590,6 +333,46 @@
                             break;
                         case 2:
                             respuesta('Error al ingresar la apertura de la caja', 'error');
+                            break;
+                        default:
+                            respuesta('¡Algo catastrofico ha ocurrido!', 'error');
+                            break;
+                    }
+                }
+            });
+        }
+    }
+
+    function guardar_cierre_caja(id){
+        var valor = true;
+        var caja_monto_cierre = $('#caja_monto_cierre').val();
+        console.log(id);
+        //valor = validar_campo_vacio('caja_monto_cierre', caja_monto_cierre, valor);
+        if(valor){
+            //Definimos el mensaje y boton a afectar
+            var boton = "btn-agregar-cierre";
+            //Cadena donde enviaremos los parametros por POST
+            var cadena = "caja_monto_cierre=" + caja_monto_cierre +
+                "&id_caja=" + id;
+            $.ajax({
+                type: "POST",
+                url: urlweb + "api/Admin/guardar_cierre_caja",
+                data: cadena,
+                dataType: 'json',
+                beforeSend: function () {
+                    cambiar_estado_boton(boton, "Guardando...", true);
+                },
+                success:function (r) {
+                    cambiar_estado_boton(boton, "<i class=\"fa fa-save fa-sm text-white-50\"></i> Guardar Cierre", false);
+                    switch (r.result.code) {
+                        case 1:
+                            respuesta('¡Cierre de caja Exitoso!', 'success');
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                            break;
+                        case 2:
+                            respuesta('Error al guardar, comuniquese con BufeoTec Company', 'error');
                             break;
                         default:
                             respuesta('¡Algo catastrofico ha ocurrido!', 'error');

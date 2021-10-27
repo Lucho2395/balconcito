@@ -44,40 +44,44 @@
                                         <tbody>
                                             <?php
                                             if($datos){
-                                                $caja_total = 0;
-                                                $ingresos_total = 0;
-                                                $egresos_total = 0;
                                                 $sumar_caja_ingresos = 0;
+                                                $ingresos = 0;
+                                                $egresos_total = 0;
+                                                $caja_ingresos = 0;
+                                                $caja_egresos = 0;
                                             for($i=$fecha_filtro;$i<=$fecha_filtro_fin;$i+=86400){
 
-                                                $reporte_ingresos = $this->reporte->listar_datos_ingresos(date("Y-m-d",$i));
+                                                $caja = $this->reporte->sumar_caja(date("Y-m-d",$i));
+                                                $caja_movi_ingresos = $this->reporte->listar_datos_ingresos_caja(date("Y-m-d",$i));
+                                                $reporte_ingresos_efectivo = $this->reporte->listar_datos_ingresos(date("Y-m-d",$i));
                                                 $reporte_ingresos_tarjeta = $this->reporte->listar_datos_ingresos_tarjeta(date("Y-m-d",$i));
                                                 $reporte_ingresos_trans = $this->reporte->listar_datos_ingresos_transferencia(date("Y-m-d",$i));
-                                                $reporte_egresos = $this->reporte->listar_datos_egresos(date("Y-m-d",$i));
+                                                $caja_movi_egresos = $this->reporte->listar_datos_egresos(date("Y-m-d",$i));
                                                 $reporte_orden_pedido = $this->reporte->listar_monto_op(date("Y-m-d",$i));
-                                                $caja = $this->reporte->sumar_caja(date("Y-m-d",$i));
-                                                $caja_ingresos = $this->reporte->listar_datos_ingresos_caja(date("Y-m-d",$i));
+
 
                                                 $caja = $caja->total ;
-                                                $caja_ingresos = $caja_ingresos->total;
+                                                $caja_movi_ingresos = $caja_movi_ingresos->total;
+                                                $reporte_ingresos_efectivo = $reporte_ingresos_efectivo->total;
+                                                $reporte_ingresos_tarjeta = $reporte_ingresos_tarjeta->total;
+                                                $reporte_ingresos_trans = $reporte_ingresos_trans->total;
+                                                $caja_movi_egresos = $caja_movi_egresos->total;
 
-                                                $caja_total = $caja_total + $caja;
-                                                $ingresos = $reporte_ingresos->total;
-                                                $ingresos_tarjeta = $reporte_ingresos_tarjeta->total;
-                                                $ingresos_trans = $reporte_ingresos_trans->total;
+                                                //SUMADOS
+                                                $sumar_caja_ingresos = $caja + $caja_movi_ingresos;
+                                                $ingresos_efectivo = $reporte_ingresos_efectivo;
+                                                $ingresos_tarjeta = $reporte_ingresos_tarjeta;
+                                                $ingresos_trans = $reporte_ingresos_trans;
+                                                $egresos = $caja_movi_egresos;
 
-                                                $ingresos_total = $ingresos_total + $ingresos + $caja + $caja_ingresos;
-                                                $egresos = $reporte_egresos->total + $reporte_orden_pedido->total;
+                                                $ingresos_total = $ingresos_total + $sumar_caja_ingresos + $ingresos_efectivo;
                                                 $egresos_total = $egresos_total + $egresos;
-
-                                                $diferencia = $ingresos + $caja + $caja_ingresos - $egresos ;
-                                                $sumar_caja_ingresos = $sumar_caja_ingresos + $caja + $caja_ingresos;
                                                 $fecha = date("d-m-Y",$i);
                                                 ?>
                                                 <tr>
                                                     <td style="text-align: center"><?= $fecha;?></td>
                                                     <td style="text-align: center"><?= $sumar_caja_ingresos ?? 0?></td>
-                                                    <td style="text-align: center"><?= $ingresos ?? 0;?></td>
+                                                    <td style="text-align: center"><?= $ingresos_efectivo ?? 0;?></td>
                                                     <td style="text-align: center"><?= $ingresos_tarjeta ?? 0;?></td>
                                                     <td style="text-align: center"><?= $ingresos_trans ?? 0;?></td>
                                                     <td style="text-align: center"><?= $egresos ?? 0;?></td>

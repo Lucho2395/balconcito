@@ -10,6 +10,20 @@
             <form method="post" action="<?= _SERVER_ ?>Reporte/reporte_general">
                 <input type="hidden" id="enviar_fecha" name="enviar_fecha" value="1">
                 <div class="row">
+                    <div class="col-lg-2">
+                        <label for="">Caja</label>
+                        <select class="form-control" name="id_caja_numero" id="id_caja_numero">
+                            <?php
+                            (isset($caja_))?$cajita=$caja_->id_caja_numero:$cajita=0;
+                            foreach($caja as $l){
+                                ($l->id_caja_numero == $cajita)?$sele='selected':$sele='';
+                                ?>
+                                <option value="<?php echo $l->id_caja_numero;?>" <?= $sele; ?>><?php echo $l->caja_numero_nombre;?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
                     <div class="col-lg-3">
                         <label for="turno">Desde:</label>
                         <input type="date" class="form-control" id="fecha_filtro" name="fecha_filtro" step="1" value="<?php echo $fecha_i;?>">
@@ -26,54 +40,42 @@
             <br>
 
             <div class="row">
+                <?php
+                foreach ($cajas_totales as $ct){
+                $datitos = $this->reporte->datitos_caja($ct->id_caja);
+                ?>
                 <div class="col-lg-6">
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table">
+                                <p>Apertura : <?= $datitos->caja_fecha_apertura;?> // Cierre : <?= $datitos->caja_fecha_cierre?> // Monto Cierre : <?= $datitos->caja_cierre;?></p>
                                 <?php
                                 if($datos){
-                                    $caja_total = 0;
-                                    $ingresos_total = 0;
-                                    $egresos_totales = 0;
-                                    $ingresos_tarjeta_total = 0;
-                                    $ingresos_trans_total = 0;
-                                    $ingresos_totales = 0;
-                                    $movimientos_caja_chica = 0;
-                                    $salida_caja_chica = 0;
-                                    $orden_pedido_total = 0;
-                                    for($i=$fecha_filtro;$i<=$fecha_filtro_fin;$i+=86400){
-
-                                        $reporte_ingresos = $this->reporte->listar_datos_ingresos(date("Y-m-d",$i));
-                                        $reporte_orden_pedido = $this->reporte->listar_monto_op(date("Y-m-d",$i));
-                                        $reporte_ingresos_tarjeta = $this->reporte->listar_datos_ingresos_tarjeta(date("Y-m-d",$i));
-                                        $reporte_ngresos_transferencia = $this->reporte->listar_datos_ingresos_transferencia(date("Y-m-d",$i));
-                                        $caja = $this->reporte->sumar_caja(date("Y-m-d",$i));
-                                        $reporte_egresos_movi = $this->reporte->listar_datos_egresos(date("Y-m-d",$i));
-                                        $reporte_ingresos_movi = $this->reporte->listar_datos_ingresos_caja(date("Y-m-d",$i));
-
-                                        $reporte_ingresos_movi = $reporte_ingresos_movi->total;
-                                        $reporte_egresos_movi = $reporte_egresos_movi->total;
-                                        $caja = $caja->total;
-                                        $reporte_ingresos_tarjeta = $reporte_ingresos_tarjeta->total;
-                                        $reporte_ngresos_transferencia = $reporte_ngresos_transferencia->total;
-                                        $ingresos = $reporte_ingresos->total;
-                                        $reporte_orden_pedido = $reporte_orden_pedido->total;
-
-                                        $caja_total = $caja_total + $caja;
-                                        $ingresos_total = $ingresos_total + $ingresos;
-                                        $orden_pedido_total = $orden_pedido_total + $reporte_orden_pedido;
-                                        $ingresos_tarjeta_total = $ingresos_tarjeta_total + $reporte_ingresos_tarjeta;
-                                        $ingresos_trans_total = $ingresos_trans_total + $reporte_ngresos_transferencia;
-                                        $movimientos_caja_chica = $movimientos_caja_chica + $reporte_ingresos_movi;
-                                        $salida_caja_chica = $salida_caja_chica + $reporte_egresos_movi;
-
-
-                                        //$fecha = date("d-m-Y",$i);
+                                    $fecha_ini_caja = $datitos->caja_fecha_apertura;
+                                    if($datitos->caja_fecha_cierre==NULL){
+                                        $fecha_fin_caja = date('Y-m-d H:i:s');
+                                    }else{
+                                        $fecha_fin_caja = $datitos->caja_fecha_cierre;
                                     }
-                                    $egresos_totales = $egresos_totales + $salida_caja_chica + $orden_pedido_total;
-                                    $ingresos_totales = $ingresos_totales + $ingresos_tarjeta_total + $ingresos_trans_total + $ingresos_total + $caja_total + $movimientos_caja_chica;
-                                    $diferencia = $caja_total + $movimientos_caja_chica + $ingresos_total - $salida_caja_chica - $orden_pedido_total;
 
+                                    $reporte_ingresos = $this->reporte->reporte_ingresos_x_caja($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+                                    $monto_caja_apertura = $this->reporte->reporte_caja_x_caja($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+                                    $ingreso_caja_chica = $this->reporte->ingreso_caja_chica_x_caja($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+                                    $ventas_efectivo = $this->reporte->ventas_efectivo($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+                                    $ventas_trans = $this->reporte->ventas_trans($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+                                    $ventas_tarjeta = $this->reporte->ventas_tarjeta($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+                                    $salida_caja_chica = $this->reporte->salida_caja_chica_x_caja($ct->id_caja, $fecha_ini_caja, $fecha_fin_caja);
+
+                                    $ingresos = $reporte_ingresos->total;
+                                    $monto_caja_apertura = $monto_caja_apertura->total;
+                                    $ingreso_caja_chica = $ingreso_caja_chica->total;
+                                    $ventas_efectivo  = $ventas_efectivo->total;
+                                    $ventas_trans  = $ventas_trans->total;
+                                    $ventas_tarjeta  = $ventas_tarjeta->total;
+                                    $salida_caja_chica = $salida_caja_chica->total;
+
+                                    $diferencia = $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo - $salida_caja_chica;
+                                    $ingresos_total =  $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo + $ventas_trans + $ventas_tarjeta;
                                 }
 
                                 ?>
@@ -90,7 +92,7 @@
                                         <label>- Apertura de Caja</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right"> S/.<?= $caja_total ?? 0?></label>
+                                        <label style="text-align: right"> S/.<?= $monto_caja_apertura ?? 0?></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -98,7 +100,7 @@
                                         <label>- Ingresos caja chica</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $movimientos_caja_chica ?? 0?></label>
+                                        <label style="text-align: right;"> S/.<?= $ingreso_caja_chica ?? 0?></label>
                                     </div>
                                 </div>
                                 <p style="border-bottom: 1px solid red"></p>
@@ -107,7 +109,7 @@
                                         <label>- VENTAS :</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $ingresos_total ?? 0?></label>
+                                        <label style="text-align: right;"> S/.<?= $ventas_efectivo ?? 0?></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -115,7 +117,7 @@
                                         <label>- Pagos Efectivo:</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $ingresos_total ?? 0?></label>
+                                        <label style="text-align: right;"> S/.<?= $ventas_efectivo ?? 0?></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -123,7 +125,7 @@
                                         <label>- Pagos Tarjeta:</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $ingresos_tarjeta_total ?? 0?></label>
+                                        <label style="text-align: right;"> S/.<?= $ventas_tarjeta ?? 0?></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -131,7 +133,7 @@
                                         <label>- Pagos Transferencia:</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $ingresos_trans_total ?? 0?></label>
+                                        <label style="text-align: right;"> S/.<?= $ventas_trans ?? 0?></label>
                                     </div>
                                 </div>
                                 <p style="border-bottom: 1px solid red"></p>
@@ -140,15 +142,7 @@
                                         <label>- EGRESOS :</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $egresos_totales ?? 0?></label>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-8">
-                                        <label>- Orden de Compras:</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <label style="text-align: right;"> S/.<?= $orden_pedido_total ?? 0?></label>
+                                        <label style="text-align: right;"> S/.<?= $salida_caja_chica ?? 0?></label>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -172,6 +166,9 @@
                         </div>
                     </div>
                 </div>
+                    <?php
+                }
+                ?>
                 <div class="col-lg-6">
                     <div class="card shadow mb-4">
                         <div class="table-responsive">
@@ -204,9 +201,40 @@
 
             <div class="row">
                 <div class="col-lg-12" style="text-align: center">
-                    <a href="<?= _SERVER_ ; ?>index.php?c=Reporte&a=reporte_general_pdf&fecha_filtro=<?= $_POST['fecha_filtro']?>&fecha_filtro_fin=<?= $_POST['fecha_filtro_fin']?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Imprimir</a>
+                    <a id="imprimir_ticket" style="color: white;" class="btn btn-primary" target="_blank" onclick="ticket_venta('<?= $fecha_i; ?>','<?= $fecha_f?>')"><i class="fa fa-print"></i> Imprimir</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script src="<?php echo _SERVER_ . _JS_;?>domain.js"></script>
+<script>
+    function ticket_venta(fecha_i,fecha_f){
+        var boton = 'imprimir_ticket';
+
+        $.ajax({
+            type: 'POST',
+            url: urlweb + "api/Reporte/ticket_reporte",
+            data: "fecha_i=" + fecha_i + "&fecha_f=" + fecha_f,
+            dataType: 'json',
+            beforeSend: function () {
+                cambiar_estado_boton(boton, 'imprimiendo...', true);
+            },
+            success:function (r) {
+                cambiar_estado_boton(boton, "<i class=\"fa fa-print\"></i> Imprimir", false);
+                switch (r.result.code) {
+                    case 1:
+                        respuesta('¡Éxito!...', 'success');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 800);
+                        break;
+                    default:
+                        respuesta('¡Algo catastrofico ha ocurrido!', 'error');
+                        break;
+                }
+            }
+        });
+    }
+</script>

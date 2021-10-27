@@ -263,6 +263,35 @@ class PedidoController
         }
     }
 
+    public function pedidos_eliminados(){
+        try{
+            $this->nav = new Navbar();
+            $navs = $this->nav->listar_menus($this->encriptar->desencriptar($_SESSION['ru'],_FULL_KEY_));
+
+            $fecha_filtro = date('Y-m-d');
+            $fecha_filtro_fin = date('Y-m-d');
+            $fecha_i = date('Y-m-d');
+            $fecha_f = date('Y-m-d');
+            $datos = false;
+            if(isset($_POST['enviar_fecha'])){
+                $fecha_i = $_POST['fecha_filtro'];
+                $fecha_f = $_POST['fecha_filtro_fin'];
+                $pedidos_eliminados = $this->pedido->listar_pedidos_eliminados($fecha_i, $fecha_f);
+                $datos = true;
+            }
+
+            require _VIEW_PATH_ . 'header.php';
+            require _VIEW_PATH_ . 'navbar.php';
+            require _VIEW_PATH_ . 'pedido/pedidos_eliminados.php';
+            require _VIEW_PATH_ . 'footer.php';
+        }catch (Throwable $e){
+            //En caso de errores insertamos el error generado y redireccionamos a la vista de inicio
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            echo "<script language=\"javascript\">alert(\"Error Al Mostrar Contenido. Redireccionando Al Inicio\");</script>";
+            echo "<script language=\"javascript\">window.location.href=\"". _SERVER_ ."\";</script>";
+        }
+    }
+
     public function historial_pedidos(){
         try{
             $this->nav = new Navbar();
@@ -434,7 +463,11 @@ class PedidoController
                 $cliente_nombre = $cliente->cliente_nombre;
             }
 
-            require _VIEW_PATH_ . 'pedido/ticket_venta.php';
+            if($venta->venta_tipo == "20"){
+                require _VIEW_PATH_ . 'pedido/ticket_nota_venta.php';
+            }else{
+                require _VIEW_PATH_ . 'pedido/ticket_venta.php';
+            }
             $result = 1;
         }catch (Throwable $e){
             $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
@@ -1468,29 +1501,36 @@ class PedidoController
             if ($ok_data) {
 //                if($this->pedido->verificar_password($this->encriptar->desencriptar($_SESSION['_n'],_FULL_KEY_), $_POST['password'])) {
                 if($ok_data) {
-                    $id_comanda_detalle = $_POST['id_comanda_detalle'];
-                    $id_comanda = $_POST['id_comanda'];
-                    $id_mesa = $_POST['id_mesa'];
-                    $result = $this->pedido->eliminar_comanda_detalle($id_comanda_detalle);
-                    if($result == 1){
-                        $jalar_valor = $this->pedido->jalar_valor($id_comanda);
-                        $nuevo_valor = $jalar_valor->total;
-                        $actualizar_precio = $this->pedido->actualizar_nuevo_valor($id_comanda, $nuevo_valor);
-                        $mesa = 0;
-                        //HACER UN CONTEO
-                        $resultado = $this->pedido->listar_detalles_x_pedido($id_comanda);
-                        $resultado_ventas = $this->pedido->listar_detalles_x_pedido_pagados($id_comanda);
-                        if(empty($resultado)){
-                            $result = $this->pedido->eliminar_comanda($id_comanda);
-                            if($result == 1){
+                    $id_rol = 3;
+                    if($this->pedido->verificar_password($id_rol, $_POST['password'])){
+                        $id_comanda_detalle = $_POST['id_comanda_detalle'];
+                        $comanda_detalle_eliminacion = $_POST['comanda_detalle_eliminacion'];
+                        $fecha_eliminacion = date('Y-m-d H:i:s');
+                        $id_comanda = $_POST['id_comanda'];
+                        $id_mesa = $_POST['id_mesa'];
+                        $result = $this->pedido->eliminar_comanda_detalle($comanda_detalle_eliminacion,$fecha_eliminacion,$id_comanda_detalle);
+                        if($result == 1){
+                            $jalar_valor = $this->pedido->jalar_valor($id_comanda);
+                            $nuevo_valor = $jalar_valor->total;
+                            $actualizar_precio = $this->pedido->actualizar_nuevo_valor($id_comanda, $nuevo_valor);
+                            $mesa = 0;
+                            //HACER UN CONTEO
+                            $resultado = $this->pedido->listar_detalles_x_pedido($id_comanda);
+                            $resultado_ventas = $this->pedido->listar_detalles_x_pedido_pagados($id_comanda);
+                            if(empty($resultado)){
+                                $result = $this->pedido->actualizar_estado_mesa($id_mesa);
+                                $mesa = 1;
+
+                            }
+                            if(empty($resultado_ventas)){
                                 $result = $this->pedido->actualizar_estado_mesa($id_mesa);
                                 $mesa = 1;
                             }
+
                         }
-                        if(empty($resultado_ventas)){
-                            $result = $this->pedido->actualizar_estado_mesa($id_mesa);
-                            $mesa = 1;
-                        }
+                    }else{
+                        $result = 5;
+                        $message = 'Contraseña Incorrecta';
                     }
                 }
             } else {

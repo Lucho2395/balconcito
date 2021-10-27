@@ -283,3 +283,35 @@ function eliminar_familia(id_producto_familia){
         });
     }
 }
+
+function sumar_stock(){
+    var valor = true;
+    var id_receta_modal = $('#id_receta_modal').val();
+    var asignar_stock = $('#asignar_stock').val();
+    if(valor) {
+        var cadena = "id_receta_modal=" + id_receta_modal +
+            "&asignar_stock=" + asignar_stock;
+        $.ajax({
+            type: "POST",
+            url: urlweb + "api/Producto/sumar_stock_nuevo",
+            data: cadena,
+            dataType: 'json',
+            success: function (r) {
+                switch (r.result.code) {
+                    case 1:
+                        respuesta('¡Stock Agregado correctamente!', 'success');
+                        setTimeout(function () {
+                            location.reload();
+                        }, 500);
+                        break;
+                    case 2:
+                        respuesta('Error al agregar, comuniquese con BufeoTec', 'error');
+                        break;
+                    default:
+                        respuesta('¡Algo catastrofico ha ocurrido!', 'error');
+                        break;
+                }
+            }
+        });
+    }
+}

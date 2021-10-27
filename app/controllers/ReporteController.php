@@ -78,6 +78,7 @@ class ReporteController
             $fecha_filtro = date('Y-m-d');
             $fecha_filtro_fin = date('Y-m-d');
 
+            $caja = $this->reporte->listar_cajas();
             $fecha_i = date('Y-m-d');
             $fecha_f = date('Y-m-d');
             $datos = false;
@@ -87,6 +88,8 @@ class ReporteController
                 $fecha_filtro = strtotime($_POST['fecha_filtro']);
                 $fecha_filtro_fin = strtotime($_POST['fecha_filtro_fin']);
                 $productos = $this->reporte->reporte_productos($fecha_i,$fecha_f);
+                //funcion para ver la caja por aprtura
+                $cajas_totales = $this->reporte->datos_por_apertura_caja($fecha_i,$fecha_f);
                 $datos = true;
             }
             require _VIEW_PATH_ . 'header.php';
@@ -376,5 +379,23 @@ class ReporteController
         }
     }
 
+
+    public function ticket_reporte(){
+        try{
+            $fecha_i = $_POST['fecha_i'];
+            $fecha_f = $_POST['fecha_f'];
+
+            $cajas_totales = $this->reporte->datos_por_apertura_caja($fecha_i,$fecha_f);
+
+            require _VIEW_PATH_ . 'reporte/ticket_reporte.php';
+            $result = 1;
+        }catch (Throwable $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            echo "<script language=\"javascript\">alert(\"Error Al Mostrar Contenido. Redireccionando Al Inicio\");</script>";
+            echo "<script language=\"javascript\">window.location.href=\"". _SERVER_ ."\";</script>";
+            $result = 2;
+        }
+        echo json_encode(array("result" => array("code" => $result, "message")));
+    }
 
 }

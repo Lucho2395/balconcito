@@ -744,6 +744,65 @@ function eliminar_comanda_detalle(id_comanda_detalle, id_comanda, id_mesa){
     }
 }
 
+function eliminar_comanda_detalle_(){
+    var valor = true;
+    //var password = "";
+    var password = $('#password').val();
+    var id_comanda_detalle = $('#id_comanda_detalle_eliminar').val();
+    var id_comanda = $('#id_comanda_eliminar').val();
+    var id_mesa = $('#id_mesa_eliminar').val();
+    var comanda_detalle_eliminacion = $('#comanda_detalle_eliminacion').val();
+    //Validamos si los campos a usar no se encuentran vacios
+    valor = validar_parametro_vacio('id_comanda_detalle',id_comanda_detalle, valor);
+    valor = validar_parametro_vacio('id_comanda',id_comanda, valor);
+    valor = validar_parametro_vacio('id_mesa',id_mesa, valor);
+    valor = validar_parametro_vacio('password',password, valor);
+    valor = validar_parametro_vacio('comanda_detalle_eliminacion',comanda_detalle_eliminacion, valor);
+    //var password = $('#password').val();
+
+    if(valor) {
+        var cadena = "id_comanda_detalle=" + id_comanda_detalle +
+            "&id_mesa=" + id_mesa +
+            "&id_comanda=" + id_comanda +
+            "&comanda_detalle_eliminacion=" + comanda_detalle_eliminacion +
+            "&password=" + password;
+        $.ajax({
+            type: "POST",
+            url: urlweb + "api/Pedido/eliminar_comanda_detalle",
+            data: cadena,
+            dataType: 'json',
+            success: function (r) {
+                switch (r.result.code) {
+                    case 1:
+                        $('#detalle' + id_comanda_detalle).remove();
+                        respuesta('¡Detalle del Pedido Eliminado!', 'success');
+                        if(r.result.mesa == 0){
+                            setTimeout(function () {
+                                location.reload()
+                            }, 300);
+                        }else{
+                            setTimeout(function () {
+                                location.href = urlweb +  'Pedido/gestionar';
+                            }, 1000);
+                        }
+                        break;
+                    case 2:
+                        respuesta('Error al eliminar el detalle del pedido', 'error');
+                        break;
+                    case 5:
+                        respuesta("La Contraseña de Usuario no es Correcta", 'error');
+                        $('#password').css('border','solid red');
+                        break;
+                    default:
+                        respuesta('¡Algo catastrofico ha ocurrido!', 'error');
+                        break;
+                }
+            }
+        });
+    }
+}
+
+
 function eliminar_reserva(id_reserva,id_mesa){
     var valor = true;
     //Validamos si los campos a usar no se encuentran vacios

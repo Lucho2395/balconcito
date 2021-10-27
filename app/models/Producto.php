@@ -332,4 +332,50 @@ class Producto
         return $result;
     }
 
+    public function jalar_recurso_sede_desde_receta_todo($id_receta){
+        try{
+            $sql = 'select * from recetas r inner join detalle_recetas dr on r.id_receta = dr.id_receta inner join recursos_sede rs 
+                    on dr.id_recursos_sede = rs.id_recurso_sede where r.id_receta = ?';
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute([$id_receta]);
+            $result = $stm->fetchAll();
+        } catch (Exception $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = [];
+        }
+        return $result;
+    }
+
+    public function jalar_recurso_sede_desde_receta($id_receta){
+        try{
+            $sql = 'select * from recetas r inner join detalle_recetas dr on r.id_receta = dr.id_receta inner join recursos_sede rs 
+                    on dr.id_recursos_sede = rs.id_recurso_sede where r.id_receta = ?';
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute([$id_receta]);
+            $result = $stm->fetch();
+        } catch (Exception $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = [];
+        }
+        return $result;
+    }
+
+    public function sumar_stock_adicional($id_recurso_sede, $asignar_nuevo){
+        try {
+            $sql = "update recursos_sede set
+                recurso_sede_stock = recurso_sede_stock + ?
+                where id_recurso_sede = ?";
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute([
+                $asignar_nuevo, $id_recurso_sede
+            ]);
+            $result = 1;
+        }catch (Exception $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = 2;
+        }
+        return $result;
+    }
+
+
 }
