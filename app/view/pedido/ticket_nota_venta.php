@@ -41,7 +41,7 @@ $printer->setJustification(Printer::JUSTIFY_CENTER);
 	el logo
 */
 try{
-    $logo = EscposImage::load("media/logo/logo_gaia_ticket.png", false);
+    $logo = EscposImage::load("media/logo/logo_balconcito_ticket.png", false);
     $printer->bitImage($logo);
 }catch(Exception $e){/*No hacemos nada si hay error*/}
 /*
@@ -53,7 +53,7 @@ $printer->text("$empresa->empresa_nombrecomercial" . "\n");
 $printer->setFont(Printer::FONT_A);
 $printer->setTextSize(1,1);
 //$printer->text("$dato_pago->empresa_nombre" . "\n");
-$printer->text("RUC Nº $empresa->empresa_ruc" . "\n");
+/*$printer->text("RUC Nº $empresa->empresa_ruc" . "\n");*/
 $printer->text("$empresa->empresa_domiciliofiscal" . "\n");
 //$printer->text("CAL. YAVARI NRO. 1360" . "\n");
 $printer->text("LORETO - MAYNAS - SAN JUAN BAUTISTA" . "\n");
@@ -86,6 +86,7 @@ $printer->text("RAZÓN SOCIAL: $cliente_nombre" . "\n");
 $printer->text("Nro. Doc    : $cliente->cliente_numero" . "\n");
 $printer->text("FECHA       : " .date('d-m-Y', strtotime($venta->venta_fecha)) . "\n");
 $printer->text("DIRECCIÓN   : $cliente->cliente_direccion" . "\n");
+$printer->text("$venta->mesa_nombre" . "\n");
 
 //$printer->text("PADRES:       $padre1" . "\n" . "           $padre2" . "\n");
 # Vamos a alinear al centro lo próximo que imprimamos
