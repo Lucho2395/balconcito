@@ -53,34 +53,7 @@ $printer->text("REPORTE GENERAL" . "\n");
 $printer->setFont(Printer::FONT_A);
 $printer->setTextSize(1,1);
 //$printer->text("$dato_pago->empresa_nombre" . "\n");
-$printer->text("DEL DIA : " . "\n");//AQUI IRIA LA FECHA
-//$printer->text("$empresa->empresa_domiciliofiscal" . "\n");
-//$printer->text("CAL. YAVARI NRO. 1360" . "\n");
-//$printer->text("LORETO - MAYNAS - PUNCHANA" . "\n");
-
-//$printer->setFont(Printer::FONT_B);
-//$printer->setTextSize(2,2);
-//$printer->text("$venta_tipo" . "\n");
-//$printer->text("$venta->venta_serie-$venta->venta_correlativo" . "\n\n");
-/*
- Ahora datos del cliente
-*/
-//$printer->setFont(Printer::FONT_B);
-//$printer->setTextSize(1,1);
-//#La fecha también
-//$printer->text(date("Y-m-d H:i:s") . "\n");
-//$printer->setFont(Printer::FONT_A);
-//$printer->setTextSize(1,1);
-//$printer->text("------------------------------------------------" . "\n");
-//$printer->text("DATOS DEL CLIENTE" . "\n");
-////$printer->text("------------------------------------------------" . "\n");
-///*Alinear a la izquierda*/
-//$printer->setJustification(Printer::JUSTIFY_LEFT);
-//$printer->text("RAZÓN SOCIAL: $cliente_nombre" . "\n");
-//$printer->text("Nro. Doc    : $cliente->cliente_numero" . "\n");
-//$printer->text("FECHA       : " .date('d-m-Y', strtotime($venta->venta_fecha)) . "\n");
-//$printer->text("DIRECCIÓN   : $cliente->cliente_direccion" . "\n");
-//$printer->text("$venta->mesa_nombre" . "\n");
+$printer->text("DEL DIA : " . "$fecha_i - $fecha_f\n");//AQUI IRIA LA FECHA
 
 //$printer->text("PADRES:       $padre1" . "\n" . "           $padre2" . "\n");
 # Vamos a alinear al centro lo próximo que imprimamos
@@ -122,19 +95,19 @@ foreach ($cajas_totales as $ct){
 
     /*Alinear a la izquierda para la cantidad y el nombre*/
     $printer->setJustification(Printer::JUSTIFY_LEFT);
-    $printer->text('INGRESOS'. '             S/ ' . $ingresos_total . "\n");
-    $printer->text('APERTURA DE CAJA'.'              S/ ' . $monto_caja_apertura  . "\n");
+    $printer->text('INGRESOS'. '                            S/ ' . $ingresos_total . "\n");
+    $printer->text('APERTURA DE CAJA'.'                     S/ ' . $monto_caja_apertura  . "\n");
     $printer->text('INGRESOS DE CAJA CHICA' .'              S/ ' . $ingreso_caja_chica  . "\n");
     $printer->text("------------------------------------------------\n");
-    $printer->text('VENTAS' .'              S/ ' . $ventas_efectivo  . "\n");
-    $printer->text('PAGOS EFECTIVO' .'       S/ ' . $ventas_efectivo  . "\n");
-    $printer->text('PAGOS TARJETA' . '       S/ ' . $ventas_tarjeta  ."\n");
-    $printer->text('PAGOS TRANSFERENCIA' . '          S/ ' . $ventas_trans  ."\n");
+    $printer->text('VENTAS' .'                              S/ ' . $ventas_efectivo  . "\n");
+    $printer->text('PAGOS EFECTIVO' .'                      S/ ' . $ventas_efectivo  . "\n");
+    $printer->text('PAGOS TARJETA' . '                      S/ ' . $ventas_tarjeta  ."\n");
+    $printer->text('PAGOS TRANSFERENCIA' . '                S/ ' . $ventas_trans  ."\n");
     $printer->text("------------------------------------------------\n");
-    $printer->text('EGRESOS' .'             S/ ' . $salida_caja_chica  . "\n");
-    $printer->text('SALIDAS CAJA CHICA' .'           S/ ' . $salida_caja_chica  . "\n");
+    $printer->text('EGRESOS' .'                             S/ ' . (empty($salida_caja_chica))?'0.00':$salida_caja_chica  . "\n");
+    $printer->text('SALIDAS CAJA CHICA' .'                  S/ ' . (empty($salida_caja_chica))?'0.00':$salida_caja_chica  . "\n");
     $printer->text("------------------------------------------------\n");
-    $printer->text('TOTAL EFECTIVO' . '               S/ ' . $diferencia  . "\n");
+    $printer->text('TOTAL EFECTIVO' . '                     S/ ' . $diferencia  . "\n");
 
     /*Y a la derecha para el importe*/
     //$printer->setJustification(Printer::JUSTIFY_CENTER);

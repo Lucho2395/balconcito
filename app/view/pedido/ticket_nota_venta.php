@@ -152,7 +152,7 @@ $printer->text("------------------------------------------------" . "\n");
 $printer->setJustification(Printer::JUSTIFY_CENTER);
 $printer->setFont(Printer::FONT_C);
 $printer->setTextSize(1,1);
-$printer->text("Este comprobante de pago no tiene valor" . "\n" . " legal, si requiere de una Boleta o Factura, " . "\n" . "¡solicítalo!.");
+$printer->text("Este comprobante de pago " . "\n" . "no tiene valor legal" . "\n");
 $printer->setJustification(Printer::JUSTIFY_CENTER);
 $printer->text("------------------------------------------------" . "\n");
 $printer->setFont(Printer::FONT_B);

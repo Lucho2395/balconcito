@@ -1084,7 +1084,7 @@ class Pedido
     //FUNCION PARA GUARDAR UNA VENTA
     public function guardar_venta($model){
         try {
-            $sql = 'insert into ventas (id_usuario,id_caja_nuwmero,id_mesa, id_cliente, id_tipo_pago, id_moneda, venta_direccion, venta_tipo, venta_serie,
+            $sql = 'insert into ventas (id_usuario,id_caja_numero,id_mesa, id_cliente, id_tipo_pago, id_moneda, venta_direccion, venta_tipo, venta_serie,
                     venta_correlativo, venta_totalgratuita, venta_totalexonerada, venta_totalinafecta, venta_totalgravada, venta_totaligv, 
                     venta_icbper ,venta_total, venta_pago_cliente, venta_vuelto, venta_fecha, tipo_documento_modificar, 
                     correlativo_modificar, venta_codigo_motivo_nota, venta_fecha_de_baja) 
