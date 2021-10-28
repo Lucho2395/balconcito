@@ -53,7 +53,7 @@ $printer->text("REPORTE GENERAL" . "\n");
 $printer->setFont(Printer::FONT_A);
 $printer->setTextSize(1,1);
 //$printer->text("$dato_pago->empresa_nombre" . "\n");
-$printer->text("DEL DIA : " . "$fecha_i - $fecha_f\n");//AQUI IRIA LA FECHA
+$printer->text("DEL DIA : " . "$fecha_i AL $fecha_f\n");//AQUI IRIA LA FECHA
 
 //$printer->text("PADRES:       $padre1" . "\n" . "           $padre2" . "\n");
 # Vamos a alinear al centro lo próximo que imprimamos
@@ -92,6 +92,7 @@ foreach ($cajas_totales as $ct){
 
     $diferencia = $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo - $salida_caja_chica;
     $ingresos_total =  $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo + $ventas_trans + $ventas_tarjeta;
+    ($salida_caja_chica==NULL)?$sa_ca_chi='0.00':$sa_ca_chi=$salida_caja_chica;
 
     /*Alinear a la izquierda para la cantidad y el nombre*/
     $printer->setJustification(Printer::JUSTIFY_LEFT);
@@ -104,8 +105,8 @@ foreach ($cajas_totales as $ct){
     $printer->text('PAGOS TARJETA' . '                      S/ ' . $ventas_tarjeta  ."\n");
     $printer->text('PAGOS TRANSFERENCIA' . '                S/ ' . $ventas_trans  ."\n");
     $printer->text("------------------------------------------------\n");
-    $printer->text('EGRESOS' .'                             S/ ' . (empty($salida_caja_chica))?'0.00':$salida_caja_chica  . "\n");
-    $printer->text('SALIDAS CAJA CHICA' .'                  S/ ' . (empty($salida_caja_chica))?'0.00':$salida_caja_chica  . "\n");
+    $printer->text('EGRESOS' .'                             S/ ' . $sa_ca_chi  . "\n");
+    $printer->text('SALIDAS CAJA CHICA' .'                  S/ ' . $sa_ca_chi  . "\n");
     $printer->text("------------------------------------------------\n");
     $printer->text('TOTAL EFECTIVO' . '                     S/ ' . $diferencia  . "\n");
 

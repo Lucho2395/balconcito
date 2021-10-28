@@ -1265,7 +1265,7 @@ class PedidoController
                                                     $capturar = $v->id_recurso_sede;
                                                     $unidad_medida = $v->id_medida;
                                                     $id_detalle_receta = $v->id_detalle_receta;
-                                                    $monto_usado = $v->detalle_receta_cantidad;
+                                                    $monto_usado = $v->detalle_receta_cantidad * $cantidad;
                                                     $cantidad = $this->pedido->capturar_cantidad($capturar);
                                                     $valor_cantidad = $cantidad->recurso_sede_stock;
                                                     if($v->detalle_receta_unidad_medida != 0){
