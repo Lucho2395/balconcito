@@ -75,7 +75,7 @@
                                     $salida_caja_chica = $salida_caja_chica->total;
 
                                     $diferencia = $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo - $salida_caja_chica;
-                                    $ingresos_total =  $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo + $ventas_trans + $ventas_tarjeta;
+                                    $ingresos_total =  $monto_caja_apertura + $ingreso_caja_chica + $ventas_efectivo + $ventas_trans + $ventas_tarjeta - $salida_caja_chica ;
                                 }
 
                                 ?>
@@ -84,7 +84,7 @@
                                         <label>- INGRESOS :</label>
                                     </div>
                                     <div class="col-md-3">
-                                        <label style="text-align: right"> S/.<?= $ingresos_totales ?? 0?></label>
+                                        <label style="text-align: right"> S/.<?= $ingresos_total ?? 0?></label>
                                     </div>
                                 </div>
                                 <div class="row">
