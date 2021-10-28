@@ -369,9 +369,7 @@
                     switch (r.result.code) {
                         case 1:
                             respuesta('¡Guardado con Exito!','success');
-                            setTimeout(function () {
-                                    location.href = urlweb +  'Pedido/gestionar';
-                            }, 300);
+                            location.href = urlweb +  'Pedido/gestionar';
                             break;
                         case 2:
                             respuesta("Fallo el envio, intentelo de nuevo", 'error');
@@ -382,8 +380,8 @@
                         default:
                             respuesta("ERROR DESCONOCIDO", 'error');
                     }
-                    $('#guardar_comanda').css("opacity","");
-                    $(".submitBtn").removeAttr("disabled");
+                    //$('#guardar_comanda').css("opacity",".5");
+                    //$(".submitBtn").removeAttr("disabled");
                 }
             });
         }

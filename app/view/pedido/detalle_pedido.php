@@ -514,19 +514,18 @@
                 <h1 class="h3 mb-0 text-gray-800"><?= $_SESSION['controlador'] . ' / ' . $_SESSION['accion'];?></h1>
             </div>
             <div class="row">
-                <div class="col-lg-3"></div>
-                <div class="col-lg-2">
+                <div class="col-lg-2 col-xs-2 col-md-2 col-sm-2">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#cambiar_mesa"><i class="fa fa-retweet"></i> Cambiar Mesa</button>
                 </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-2">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#cantidad"><i class="fa fa-save"></i> Cantidad Personas</button>
+                <div class="col-sm-1 col-md-1 col-xs-1"></div>
+                <div class="col-lg-2 col-xs-2 col-md-2 col-sm-2">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#cantidad"><i class="fa fa-save"></i> Cant. Personas</button>
                 </div>
-                <div class="col-lg-1"></div>
-                <div class="col-lg-2">
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_pedido_nuevo"><i class="fa fa-pencil"></i> Agregar Nuevo Pedido</button>
+                <div class="col-sm-1 col-md-1 col-xs-1"></div>
+                <div class="col-lg-2 col-xs-2 col-md-2 col-sm-2">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#agregar_pedido_nuevo"><i class="fa fa-pencil"></i> Nuevo Pedido</button>
                 </div>
-             </div>
+            </div>
             <br>
             <div class="row">
                 <div class="col-lg-12" style="text-align: center; padding-bottom:5px; "><h3><b>Pedido # <?= $dato_pedido->comanda_correlativo;?></b> // <?= $dato_pedido->mesa_nombre;?> // Personas: <?= $dato_pedido->comanda_cantidad_personas;?></h3></div>

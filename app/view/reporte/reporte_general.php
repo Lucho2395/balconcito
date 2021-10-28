@@ -228,7 +228,7 @@
                         respuesta('¡Éxito!...', 'success');
                         setTimeout(function () {
                             location.reload();
-                        }, 800);
+                        }, 400);
                         break;
                     default:
                         respuesta('¡Algo catastrofico ha ocurrido!', 'error');

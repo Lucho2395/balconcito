@@ -107,12 +107,11 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h3 mb-0 text-gray-800"><?= $_SESSION['controlador'] . ' / ' . $_SESSION['accion'];?></h1>
             </div>
-                <div class="row">
-                    <div class="col-lg-10 col-xs-8 col-md-8 col-sm-8"></div>
-                    <div class="col-lg-2 col-xs-2 col-md-2 col-sm-2">
-                        <button class="btn btn-primary" data-toggle="modal" data-target="#reservas" ><i class="fa fa-calendar"></i> Reservar Mesa</button>
-                    </div>
+            <div class="row">
+                <div class="col-lg-2 col-xs-2 col-md-2 col-sm-2">
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#reservas" ><i class="fa fa-calendar"></i> Reservar Mesa</button>
                 </div>
+            </div>
                 <br>
                 <div class="row">
                     <?php
