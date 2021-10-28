@@ -10,14 +10,14 @@ class PDF extends FPDF{
         //Mover
         $this->Cell(30);
         //Titulo
-        $this->Cell(130,10,'GAIA RESTAURANT CEVICHERIA S.R.L',0,1,'C');
+        $this->Cell(130,10,'BALCONCITO RESTAURANT',0,1,'C');
         $this->SetFont('Arial','B',12);
-        $this->Cell(190,10,'CAL. LOS FRUTALES NRO. B-1 (AV GUARDIA CIVIL)',0,1,'C');
+        $this->Cell(190,10,'AV GUARDIA CIVIL 1331',0,1,'C');
         $this->SetFont('Arial','B',12);
-        $this->Cell(190,10,'Telf: 949065923',0,1,'C');
+        $this->Cell(190,10,'RESERVAS: 979456536',0,1,'C');
         $this->SetFont('Arial','B',12);
         $this->Cell(190,10,'----------------------------------------------------------------------------------------------------------------------',0,0,'C');
-        $this->Image('media/logo/logo_gaia.jpeg',16,13,35);
+        $this->Image('media/logo/logo_balconcito.png',16,13,35);
         //Salto de linea
         $this->Ln();
     }

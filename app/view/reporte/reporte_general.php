@@ -200,8 +200,11 @@
             </div>
 
             <div class="row">
-                <div class="col-lg-12" style="text-align: center">
-                    <a id="imprimir_ticket" style="color: white;" class="btn btn-primary" target="_blank" onclick="ticket_venta('<?= $fecha_i; ?>','<?= $fecha_f?>')"><i class="fa fa-print"></i> Imprimir</a>
+                <div class="col-lg-6" style="text-align: center">
+                    <a id="imprimir_ticket" style="color: white;" class="btn btn-primary" target="_blank" onclick="ticket_venta('<?= $fecha_i; ?>','<?= $fecha_f?>')"><i class="fa fa-print"></i> Imprimir Ticket</a>
+                </div>
+                <div class="col-lg-6" style="text-align: center">
+                    <a href="<?= _SERVER_ ; ?>index.php?c=Reporte&a=reporte_general_pdf&fecha_filtro=<?= $_POST['fecha_filtro']?>&fecha_filtro_fin=<?= $_POST['fecha_filtro_fin']?>&id_caja_numero=<?= $_POST['id_caja_numero']?>" target="_blank" class="btn btn-primary"><i class="fa fa-print"></i> Exportar PDF</a>
                 </div>
             </div>
         </div>
