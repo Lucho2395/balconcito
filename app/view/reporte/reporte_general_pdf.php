@@ -96,7 +96,7 @@ $pdf->Cell(130,10,'CANTIDAD DE VENTAS POR PRODUCTOS',0,1,'C');
 $pdf->SetFillColor(232,232,232);
 $pdf->SetFont('Arial','',10);
 $pdf->Cell(25);
-$pdf->Cell(60,6,'PRODUCTO',1,0,'C',1);
+$pdf->Cell(65,6,'PRODUCTO',1,0,'C',1);
 $pdf->Cell(47,6,'RANGO DE FECHAS',1,0,'C',1);
 $pdf->Cell(43,6,'CANTIDAD VENDIDA',1,0,'C',1);
 $pdf->Ln();
@@ -104,7 +104,7 @@ $cantidad_vendida = 0;
 $pdf->SetFont('Arial','',9);
 foreach ($productos as $p){
     $pdf->Cell(25);
-    $pdf->CellFitSpace(60,6,$p->producto_nombre,1,0,'C',0);
+    $pdf->CellFitSpace(65,6,$p->producto_nombre,1,0,'C',0);
     $pdf->CellFitSpace(47,6,$fecha_i.' / '.$fecha_f,1,0,'C',0);
     $pdf->CellFitSpace(43,6,$p->total,1,1,'C',0);
     $cantidad_vendida = $cantidad_vendida +$p->total;
