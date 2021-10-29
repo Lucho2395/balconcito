@@ -57,7 +57,7 @@ class EgresoController
             }
 
             $id_usuario = $this->encriptar->desencriptar($_SESSION['c_u'],_FULL_KEY_);
-            $sucursal = $this->negocio->listar_sucursal_egresos($id_usuario);
+            $sucursal = $this->negocio->listar_sucursal_egresos_();
             require _VIEW_PATH_ . 'header.php';
             require _VIEW_PATH_ . 'navbar.php';
             require _VIEW_PATH_ . 'egresos/gestionar.php';

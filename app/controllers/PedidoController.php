@@ -546,6 +546,7 @@ class PedidoController
                                         <tr>
                                             <th>Producto</th>
                                             <th>Precio</th>
+                                            <th>Stock</th>
                                             <th>Acción</th>
                                         </tr>
                                         </thead>
@@ -559,6 +560,11 @@ class PedidoController
                 $icbper = 0.50;
             }
             foreach ($result as $r){
+                $stock = "(-)";
+                if($r->id_producto_familia == 9 || $r->id_producto_familia == 10 || $r->id_producto_familia == 11){
+                    $stock_ = $this->pedido->listar_stock_x_receta($r->id_receta);
+                    $stock = "($stock_->recurso_sede_stock)";
+                }
                 $op_gravadas=0.00;
                 $op_exoneradas=0.00;
                 $op_inafectas=0.00;
@@ -578,6 +584,7 @@ class PedidoController
                 $producto .= " <tr>
                                 <td>". $r->producto_nombre ."</td>
                                 <td>". $total . "</td>
+                                <td>". $stock . "</td>
                                 <td><button class='btn btn-success' data-toggle='modal' onclick='guardar_pedido(".$r->id_producto. ",\"".$r->producto_nombre."\",\"".$total."\")' data-target='#asignar_pedido'><i class='fa fa-check'></i> Agregar</button><td>
                             </tr>";
             }

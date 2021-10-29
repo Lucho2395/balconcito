@@ -97,18 +97,18 @@ foreach ($cajas_totales as $ct){
     /*Alinear a la izquierda para la cantidad y el nombre*/
     $printer->setJustification(Printer::JUSTIFY_LEFT);
     $printer->text('INGRESOS'. '                            S/ ' . $ingresos_total . "\n");
-    $printer->text('APERTURA DE CAJA'.'                     S/ ' . $monto_caja_apertura  . "\n");
-    $printer->text('INGRESOS DE CAJA CHICA' .'              S/ ' . $ingreso_caja_chica  . "\n");
+    $printer->text('APERTURA DE CAJA'.'                   S/ ' . $monto_caja_apertura  . "\n");
+    $printer->text('INGRESOS DE CAJA CHICA' .'              S/ ' . ($ingreso_caja_chica==NULL)?'0.00':$ingreso_caja_chica  . "\n");
     $printer->text("------------------------------------------------\n");
     $printer->text('VENTAS' .'                              S/ ' . $ventas_efectivo  . "\n");
     $printer->text('PAGOS EFECTIVO' .'                      S/ ' . $ventas_efectivo  . "\n");
-    $printer->text('PAGOS TARJETA' . '                      S/ ' . $ventas_tarjeta  ."\n");
-    $printer->text('PAGOS TRANSFERENCIA' . '                S/ ' . $ventas_trans  ."\n");
+    $printer->text('PAGOS TARJETA' . '                        S/ ' . $ventas_tarjeta  ."\n");
+    $printer->text('PAGOS TRANSFERENCIA' . '                  S/ ' . ($ventas_trans==NULL)?'0.00':$ventas_trans  ."\n");
     $printer->text("------------------------------------------------\n");
     $printer->text('EGRESOS' .'                             S/ ' . $sa_ca_chi  . "\n");
     $printer->text('SALIDAS CAJA CHICA' .'                  S/ ' . $sa_ca_chi  . "\n");
     $printer->text("------------------------------------------------\n");
-    $printer->text('TOTAL EFECTIVO' . '                     S/ ' . $diferencia  . "\n");
+    $printer->text('TOTAL EFECTIVO' . '                      S/ ' . $diferencia  . "\n");
 
     /*Y a la derecha para el importe*/
     //$printer->setJustification(Printer::JUSTIFY_CENTER);

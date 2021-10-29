@@ -322,6 +322,19 @@ class Negocio
         return $result;
     }
 
+    public function listar_sucursal_egresos_(){
+        try {
+            $sql = 'select * from sucursal s inner join negocios n on s.id_negocio = n.id_negocio';
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute();
+            $result = $stm->fetchAll();
+        } catch (Exception $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = 2;
+        }
+        return $result;
+    }
+
     public function listar_usuario($id){
         try {
             $sql = 'select * from usuarios_negocio un inner join negocios n on un.id_negocio = n.id_negocio inner join usuarios u on un.id_usuario = u.id_usuario where un.id_usuario = ?';

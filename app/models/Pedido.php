@@ -63,6 +63,19 @@ class Pedido
         }
         return $result;
     }
+    public function listar_stock_x_receta($id_receta){
+        try {
+            $sql = 'SELECT * FROM detalle_recetas r inner join recursos_sede rs ON r.id_recursos_sede = rs.id_recurso_sede 
+                    where r.id_receta = ? limit 1';
+            $stm = $this->pdo->prepare($sql);
+            $stm->execute([$id_receta]);
+            $result = $stm->fetch();
+        } catch (Exception $e){
+            $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);
+            $result = 2;
+        }
+        return $result;
+    }
 
     public function buscar_datos_reserva($id_mesa){
         try{

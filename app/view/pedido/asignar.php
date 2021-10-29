@@ -102,11 +102,17 @@
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
+                                                <th></th>
                                             </tr>
                                             </thead>
                                             <tbody>
                                             <?php
                                             foreach ($productos_familia as $pf){
+                                                $stock = "(-)";
+                                                if($pf->id_producto_familia == 9 || $pf->id_producto_familia == 10 || $pf->id_producto_familia == 11){
+                                                    $stock_ = $this->pedido->listar_stock_x_receta($pf->id_receta);
+                                                    $stock = "($stock_->recurso_sede_stock)";
+                                                }
                                                 $anho = date('Y');
                                                 if($anho == "2021"){
                                                     $icbper = 0.30;
@@ -135,6 +141,7 @@
                                                 <tr>
                                                     <td><?=$pf->producto_nombre?></td>
                                                     <td><?=$total ?></td>
+                                                    <td><?=$stock ?></td>
                                                     <td><button class='btn btn-success' data-toggle='modal' onclick="guardar_pedido(<?=$pf->id_producto?>,'<?=$pf->producto_nombre?>','<?=$total?>')" data-target='#asignar_pedido'><i class='fa fa-check'></i></button><td>
                                                 </tr>
                                                 <?php
