@@ -492,22 +492,33 @@
                                             <td><?= $ar->producto_precio_venta;?></td>
                                             <td><img class="rounded" src="<?= $foto;?>" alt="Foto de <?php echo $ar->producto_nombre;?>" width="120"></td>
                                             <td>
-                                                <a class="btn btn-success" onclick="editar_producto(<?= $ar->id_producto?>,'<?= $ar->id_receta?>','<?= $ar->id_grupo?>','<?= $ar->id_producto_familia?>','<?= $ar->producto_nombre?>','<?= $ar->id_unidad_medida?>','<?= $ar->producto_precio_codigoafectacion?>','<?= $ar->producto_descripcion?>','<?= $ar->producto_precio_venta?>','<?= $ar->producto_foto?>')" data-target="#editarproducto" data-toggle="modal" title='Editar'><i class='fa fa-edit text-white editar margen'></i></a>
                                                 <?php
-                                                if($entr){ ?>
-                                                    <a class="btn btn-primary" onclick="agregar_stock(<?= $ar->id_receta?>,'<?= $ar->producto_nombre?>')" data-target="#agregar_stock" data-toggle="modal" title='Agregar Stock'><i class='fa fa-plus text-white editar margen'></i></a>
-                                                    <?php
-                                                }
-                                                ?>
-                                                <?php
-                                                if ($ar->producto_estado == 0) {
+                                                if($id_rol != 5){
                                                     ?>
-                                                    <a class="btn btn-success" onclick="preguntar('¿Esta seguro que quiere Habilitar este producto?','habilitar','Si','No',<?= $ar->id_producto ?>,1)" title='Habilitar producto'><i class='fa fa-check text-white editar margen'></i></a>
-
+                                                    <a class="btn btn-success" onclick="editar_producto(<?= $ar->id_producto?>,'<?= $ar->id_receta?>','<?= $ar->id_grupo?>','<?= $ar->id_producto_familia?>','<?= $ar->producto_nombre?>','<?= $ar->id_unidad_medida?>','<?= $ar->producto_precio_codigoafectacion?>','<?= $ar->producto_descripcion?>','<?= $ar->producto_precio_venta?>','<?= $ar->producto_foto?>')" data-target="#editarproducto" data-toggle="modal" title='Editar'><i class='fa fa-edit text-white editar margen'></i></a>
                                                     <?php
+                                                    if($entr){
+                                                        ?>
+                                                        <a class="btn btn-primary" onclick="agregar_stock(<?= $ar->id_receta?>,'<?= $ar->producto_nombre?>')" data-target="#agregar_stock" data-toggle="modal" title='Agregar Stock'><i class='fa fa-plus text-white editar margen'></i></a>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                    <?php
+                                                    if ($ar->producto_estado == 0) {
+                                                        ?>
+                                                        <a class="btn btn-success" onclick="preguntar('¿Esta seguro que quiere Habilitar este producto?','habilitar','Si','No',<?= $ar->id_producto ?>,1)" title='Habilitar producto'><i class='fa fa-check text-white editar margen'></i></a>
+
+                                                        <?php
+                                                    }else{
+                                                        ?>
+                                                        <a class="btn btn-danger" onclick="preguntar('¿Esta seguro que quiere Deshabilitar este producto?','deshabilitar','Si','No',<?= $ar->id_producto ?>,0)" title='Deshabilitar producto'><i class='fa fa-trash text-white editar margen'></i></a>
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                        <?php
                                                 }else{
                                                     ?>
-                                                    <a class="btn btn-danger" onclick="preguntar('¿Esta seguro que quiere Deshabilitar este producto?','deshabilitar','Si','No',<?= $ar->id_producto ?>,0)" title='Deshabilitar producto'><i class='fa fa-trash text-white editar margen'></i></a>
+                                                    <a class="btn btn-primary" onclick="agregar_stock(<?= $ar->id_receta?>,'<?= $ar->producto_nombre?>')" data-target="#agregar_stock" data-toggle="modal" title='Agregar Stock'><i class='fa fa-plus text-white editar margen'></i></a>
                                                     <?php
                                                 }
                                                 ?>

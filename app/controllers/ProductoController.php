@@ -40,7 +40,7 @@ class ProductoController
         try{
             $this->nav = new Navbar();
             $navs = $this->nav->listar_menus($this->encriptar->desencriptar($_SESSION['ru'],_FULL_KEY_));
-
+            $id_rol = $this->encriptar->desencriptar($_SESSION['ru'],_FULL_KEY_);
             $familia = $this->producto->listar_familias();
             if(isset($_POST['enviar_dato'])){
                 $id_producto_familia = $_POST['id_producto_familia'];
