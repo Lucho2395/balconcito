@@ -386,6 +386,10 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-3">
+                                        <?php
+                                        $entre=true;
+                                        if( $id_rol !=5){
+                                        ?>
                                         <div class="form-group">
                                             <label for="gratis">Cortesía</label><br>
                                             <select class="form-control" id="gratis" name="gratis">
@@ -393,6 +397,13 @@
                                                 <option value="2" selected>NO</option>
                                             </select>
                                         </div>
+                                        <?php
+                                        }else{
+                                            ?>
+                                            <input type="hidden" id="gratis" name="gratis" value="2">
+                                        <?php
+                                        }
+                                        ?>
                                     </div>
                                     <div class="col-lg-7">
                                         <label>Tipo Documento</label><br>
@@ -637,7 +648,7 @@
                                 </div>
                                 <?php
                                 $entre=true;
-                                if($id_rol == 2 || $id_rol == 3 || $id_rol ==5){
+                                if($id_rol == 2 || $id_rol == 3 || $id_rol ==5 || $id_rol == 7){
                                     ?>
                                     <div class="col-lg-3 col-sm-3 col-md-3">
                                         <button type="button" id="btn_generarventa" class="btn btn-primary" data-toggle="modal" data-target="#ventas">
