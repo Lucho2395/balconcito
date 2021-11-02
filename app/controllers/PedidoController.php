@@ -851,6 +851,7 @@ class PedidoController
                                 $modelDSI->comanda_detalle_observacion = $celdas[5];
                                 $modelDSI->comanda_detalle_fecha_registro = $fecha;
                                 $modelDSI->comanda_detalle_estado = 1;
+                                $modelDSI->comanda_detalle_descuento = $celdas[7];
                                 $result = $this->pedido->guardar_detalle_comanda($modelDSI);
                             }
                         }
@@ -929,6 +930,7 @@ class PedidoController
                             $modelDSI->comanda_detalle_observacion = $celdas[5];
                             $modelDSI->comanda_detalle_fecha_registro = $fecha;
                             $modelDSI->comanda_detalle_estado = 1;
+                            $modelDSI->comanda_detalle_descuento = 0;
                             $result = $this->pedido->guardar_detalle_comanda($modelDSI);
                             if ($result == 1) {
                                 $jalar_valor = $this->pedido->jalar_valor($id_comanda);
@@ -1020,6 +1022,7 @@ class PedidoController
                                 $modelDSI->comanda_detalle_observacion = $celdas[5];
                                 $modelDSI->comanda_detalle_fecha_registro = $fecha;
                                 $modelDSI->comanda_detalle_estado = 1;
+                                $modelDSI->comanda_detalle_descuento = 0;
                                 $result = $this->pedido->guardar_detalle_comanda($modelDSI);
                             }
                         }

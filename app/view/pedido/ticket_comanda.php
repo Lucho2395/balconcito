@@ -41,7 +41,7 @@ $printer->setFont(Printer::FONT_B);
 $printer->setTextSize(1,1);
 #La fecha también
 $printer->text(date("Y-m-d H:i:s") . "\n");
-$printer->setFont(Printer::FONT_B);
+$printer->setFont(Printer::FONT_A);
 $printer->setTextSize(2,2);
 $printer->text("$comanda->mesa_nombre" . "\n");
 $printer->text("NRO. TICKET $comanda->comanda_correlativo" . "\n\n");

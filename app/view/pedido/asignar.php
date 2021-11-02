@@ -17,12 +17,38 @@
                                         <input type="text" readonly class="form-control" id="producto_nombre" name="producto_nombre">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6">
+                                <div class="col-lg-2 col-sm-2">
                                     <div class="form-group">
                                         <label class="col-form-label">Precio</label>
                                         <input type="text" readonly class="form-control" id="comanda_detalle_precio" name="comanda_detalle_precio">
                                     </div>
                                 </div>
+                                <?php
+                                $dia = date('l');
+                                if($dia == "Tuesday" || $dia == "Wednesday" || $dia == "Thursday"){
+                                ?>
+                                <div class="col-lg-2 col-sm-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Descuento %</label>
+                                        <input type="text" onchange="calcular_descuento()" class="form-control" id="comanda_detalle_porcentaje" name="comanda_detalle_porcentaje">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-2">
+                                    <div class="form-group">
+                                        <label class="col-form-label">Total</label>
+                                        <input type="text" readonly class="form-control" id="comanda_total" name="comanda_total">
+                                    </div>
+                                </div>
+                                <?php
+                                }else{?>
+                                    <input type="hidden" class="form-control" id="comanda_detalle_porcentaje" name="comanda_detalle_porcentaje" value="0">
+                                    <input type="hidden" readonly class="form-control" id="comanda_total" name="comanda_total">
+
+                                    <?php
+                                }
+                                ?>
+
+
                                 <div class="col-lg-6 col-sm-6">
                                     <div class="form-group">
                                         <label class="col-form-label">Cantidad</label>
@@ -33,8 +59,8 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Tipo Entrega</label>
                                         <select class="form-control" id= "comanda_detalle_despacho" name="comanda_detalle_despacho">
-                                            <option value="salon">Salon</option>
-                                            <option value="llevar">Para llevar</option>
+                                            <option value="SALON">SALON</option>
+                                            <option value="PARA LLEVAR">PARA LLEVAR</option>
                                         </select>
                                     </div>
                                 </div>
@@ -285,11 +311,12 @@
         $("#comanda_detalle_observacion").val("-");
         $("#producto_nombre").val("");
 
-        $("#comanda_detalle_despacho option[value='salon']").attr('selected','selected');
-        $("#comanda_detalle_despacho").val("salon");
+        $("#comanda_detalle_despacho option[value='SALON']").attr('selected','selected');
+        $("#comanda_detalle_despacho").val("SALON");
         $("#comanda_detalle_despacho").select().trigger('change');
         $("#parametro").val("");
         $("#producto").html("");
+        $('#comanda_detalle_porcentaje').val("");
     }
 
 
@@ -325,24 +352,26 @@
         var producto_nombre = $("#producto_nombre").val();
         var id_producto = $("#id_producto").val();
         var comanda_detalle_cantidad = $("#comanda_detalle_cantidad").val() * 1;
-        var comanda_detalle_precio = $("#comanda_detalle_precio").val() * 1;
+        var comanda_detalle_precio = $("#comanda_total").val() * 1;
+        var comanda_detalle_porcentaje = $('#comanda_detalle_porcentaje').val();
 
 
         var subtotal = comanda_detalle_cantidad * comanda_detalle_precio;
         subtotal.toFixed(2);
-        subtotal = subtotal.toFixed(2);;
+        subtotal = subtotal.toFixed(2);
 
         /*total_total = total_total + subtotal;
         total_total.toFixed(2);
         total_total = parseFloat(total_total);*/
 
         if(id_producto !="" && comanda_detalle_cantidad!="" && comanda_detalle_precio!="" && producto_nombre!="" && comanda_detalle_observacion !="" && subtotal!="" && comanda_detalle_despacho !="" ){
-            contenido += id_producto + "-.-." + producto_nombre + "-.-."+ comanda_detalle_precio+"-.-." + comanda_detalle_cantidad +"-.-."+comanda_detalle_despacho+"-.-." + comanda_detalle_observacion+"-.-."+subtotal+"/./.";
+            contenido += id_producto + "-.-." + producto_nombre + "-.-."+ comanda_detalle_precio+"-.-." + comanda_detalle_cantidad +"-.-."+comanda_detalle_despacho+"-.-." + comanda_detalle_observacion+"-.-."+subtotal+"-.-."+comanda_detalle_porcentaje+"/./.";
             $("#contenido").val(contenido);
             //$("#comanda_total_pedido").val(subtotal);
             respuesta('Agregado', 'success');
             show_table();
             clean();
+
         }else{
             respuesta('Ingrese todos los campos');
         }
@@ -393,6 +422,16 @@
             });
         }
     });
+
+    function calcular_descuento(){
+        var comanda_detalle_porcentaje = $('#comanda_detalle_porcentaje').val();
+        var comanda_detalle_precio = $('#comanda_detalle_precio').val();
+        var porcentaje = comanda_detalle_porcentaje / 100;
+        var nue_total = comanda_detalle_precio * porcentaje;
+
+        var total = comanda_detalle_precio - nue_total;
+        $('#comanda_total').val(total.toFixed(2));
+    }
 
 
 </script>

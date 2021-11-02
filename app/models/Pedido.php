@@ -332,7 +332,9 @@ class Pedido
 
     public function guardar_detalle_comanda($model){
         try {
-            $sql = 'insert into comanda_detalle (id_comanda, id_producto, comanda_detalle_precio, comanda_detalle_cantidad, comanda_detalle_despacho, comanda_detalle_total, comanda_detalle_observacion, comanda_detalle_fecha_registro, comanda_detalle_estado) values(?,?,?,?,?,?,?,?,?)';
+            $sql = 'insert into comanda_detalle (id_comanda, id_producto, comanda_detalle_precio, comanda_detalle_cantidad, comanda_detalle_despacho, comanda_detalle_total, 
+                    comanda_detalle_descuento, comanda_detalle_observacion, comanda_detalle_fecha_registro, comanda_detalle_estado) 
+                    values(?,?,?,?,?,?,?,?,?,?)';
             $stm = $this->pdo->prepare($sql);
             $stm->execute([
                 $model->id_comanda,
@@ -341,6 +343,7 @@ class Pedido
                 $model->comanda_detalle_cantidad,
                 $model->comanda_detalle_despacho,
                 $model->comanda_detalle_total,
+                $model->comanda_detalle_descuento,
                 $model->comanda_detalle_observacion,
                 $model->comanda_detalle_fecha_registro,
                 $model->comanda_detalle_estado

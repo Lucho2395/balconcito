@@ -176,6 +176,7 @@ function agregar(){
     var vuelto_ = $('#vuelto_').val();
     var imprimir = $('#imprimir').val();
     var gratis = $('#gratis').val();
+    var observacion_cortesia = $('#observacion_cortesia').val();
 
     var partir_pago = $('#partir_pago').val();
     var contenido_tipopago = "";
@@ -204,6 +205,9 @@ function agregar(){
     valor = validar_campo_vacio('serie', serie, valor);
     valor = validar_campo_vacio('correlativo', correlativo, valor);
     valor = validar_campo_vacio('venta_total', venta_total, valor);
+    if(gratis == 1){
+        valor = validar_campo_vacio('observacion_cortesia', observacion_cortesia, valor);
+    }
 
     if(valor){
         var cadena = "id_cliente=" + id_cliente +
@@ -231,6 +235,7 @@ function agregar(){
             "&partir_pago=" + partir_pago +
             "&imprimir=" + imprimir +
             "&gratis=" + gratis +
+            "&observacion_cortesia=" + observacion_cortesia +
             "&id_mesa=" + id_mesa;
 
         $.ajax({
@@ -485,6 +490,7 @@ function guardar_pedido(id,producto_nombre, precio){
     $('#id_producto').val(id);
     $('#producto_nombre').val(producto_nombre);
     $('#comanda_detalle_precio').val(precio);
+    calcular_descuento();
 
 }
 

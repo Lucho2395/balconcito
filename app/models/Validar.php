@@ -393,4 +393,30 @@ class Validar{
         }
         return (bool) is_numeric($var);
     }
+    function obtener_nombre_dia($day){
+        switch ($day){
+            case "Monday":
+                $d = "Lunes";
+                break;
+            case "Tuesday":
+                $d = "Martes";
+                break;
+            case "Wednesday":
+                $d = "Miércoles";
+                break;
+            case "Thursday":
+                $d = "Jueves";
+                break;
+            case "Friday":
+                $d = "Viernes";
+                break;
+            case "Saturday":
+                $d = "Sábado";
+                break;
+            case "Sunday":
+                $d = "Domingo";
+                break;
+        }
+        return $d;
+    }
 }

@@ -391,7 +391,7 @@
                                         ?>
                                         <div class="form-group">
                                             <label for="gratis">Cortesía</label><br>
-                                            <select class="form-control" id="gratis" name="gratis">
+                                            <select onchange="select_cortesia()" class="form-control" id="gratis" name="gratis">
                                                 <option value="1">SI</option>
                                                 <option value="2" selected>NO</option>
                                             </select>
@@ -416,7 +416,10 @@
                                             ?>
                                         </select>
                                     </div>
-
+                                    <div class="col-lg-5" id="div_observacion_cortesia">
+                                        <label>Observación de Cortesía</label><br>
+                                        <textarea class="form-control" name="observacion_cortesia" id="observacion_cortesia" cols="30" rows="2"></textarea>
+                                    </div>
                                     <div class="col-lg-12">
                                         <div class="row">
                                             <div class="col-lg-4">
@@ -646,7 +649,7 @@
                                 </div>
                                 <?php
                                 $entre=true;
-                                if($id_rol == 2 || $id_rol == 3 || $id_rol ==5 || $id_rol == 7){
+                                if($id_rol != 4 || $id_rol != 6 || $id_rol !=7 ){
                                     ?>
                                     <div class="col-lg-3 col-sm-3 col-md-3">
                                         <button type="button" id="btn_generarventa" class="btn btn-primary" data-toggle="modal" data-target="#ventas">
@@ -679,6 +682,7 @@
         var por_cancelar = por_cancelar_.toFixed(2);
         $("#total_por_cancelar").html(por_cancelar);
         partir_pago();
+        select_cortesia();
     });
     var contenido_pedido = "";
 
@@ -894,6 +898,14 @@
             respuesta('Monto ' + valor + ' tiene que ser menor que ' + total);
             $('#monto_2').val('');
 
+        }
+    }
+    function select_cortesia(){
+        var  cortesia = $('#gratis').val();
+        if(cortesia == 1){
+            $('#div_observacion_cortesia').show();
+        }else{
+            $('#div_observacion_cortesia').hide();
         }
     }
 
