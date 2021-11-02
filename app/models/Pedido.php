@@ -1076,8 +1076,9 @@ class Pedido
     //FUNCION PARA GUARDAR UN PEDIDO GRATUITO
     public function guardar_pedido_gratis($model){
         try {
-            $sql = 'insert into pedidos_gratis (id_mesa, id_usuario, pedido_gratis_numero, pedido_gratis_nombre, pedido_gratis_direccion, pedido_gratis_total, pedido_gratis_datetime, pedido_gratis_codigo) 
-                    values (?,?,?,?,?,?,?,?)';
+            $sql = 'insert into pedidos_gratis (id_mesa, id_usuario, pedido_gratis_numero, pedido_gratis_nombre, pedido_gratis_direccion, pedido_gratis_total,
+                           pedido_gratis_observacion, pedido_gratis_datetime, pedido_gratis_codigo) 
+                    values (?,?,?,?,?,?,?,?,?)';
             $stm = $this->pdo->prepare($sql);
             $stm->execute([
                 $model->id_mesa,
@@ -1086,6 +1087,7 @@ class Pedido
                 $model->cliente_nombre,
                 $model->cliente_direccion,
                 $model->venta_total,
+                $model->observacion_cortesia,
                 $model->fecha,
                 $model->codigo
             ]);

@@ -939,7 +939,6 @@ class PedidoController
                             }
                         }
                         //INICIO - IMPRESION DE TICKET DE COMANDA
-                        $id_comanda = $id_comanda;
                         $comanda = $this->pedido->listar_comanda_x_id($id_comanda);
                         $detalle_comanda =$this->pedido->listar_detalle_x_comanda_x_fecha($id_comanda, $fecha);
 
@@ -1408,6 +1407,7 @@ class PedidoController
                         $model->cliente_nombre = $_POST['cliente_nombre'];
                         $model->cliente_direccion = $_POST['cliente_direccion'];
                         $model->venta_total = $_POST['venta_total'];
+                        $model->observacion_cortesia = $_POST['observacion_cortesia'];
                         $model->fecha = $fecha;
                         $microtime = microtime(true);
                         $model->codigo = $microtime;
