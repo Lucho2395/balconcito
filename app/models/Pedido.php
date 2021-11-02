@@ -620,7 +620,7 @@ class Pedido
                     inner join productos p on cd.id_producto = p.id_producto inner join grupos g on p.id_grupo = g.id_grupo 
                     inner join producto_precio pp on p.id_producto = pp.id_producto
                     where c.id_mesa = ? and pp.producto_precio_estado=1 and comanda_detalle_estado_venta = 1 and date(comanda_fecha_registro) between 
-                    ? and ? group by c.id_comanda order by comanda_fecha_registro desc';
+                    ? and ? group by c.id_comanda   ';
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$id_mesa,$fecha_filtro,$fecha_filtro_fin]);
             $result = $stm->fetchAll();
@@ -1479,12 +1479,14 @@ class Pedido
         $result = false;
         try{
             $sql = "Select usuario_contrasenha from usuarios 
-                    where id_rol = ? OR id_rol = ? OR id_rol = ? and usuario_estado = 1";
+                    where id_rol = ? or id_rol = ? or id_rol = ? and usuario_estado = 1";
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$user, $id_rol_2, $id_rol_3]);
-            $info = $stm->fetch();
-            if(password_verify($pass, $info->usuario_contrasenha)){
-                $result = true;
+            $info = $stm->fetchAll();
+            foreach ($info as $i){
+                if(password_verify($pass, $i->usuario_contrasenha)){
+                    $result = true;
+                }
             }
         } catch (Exception $e){
             $this->log->insertar($e->getMessage(), get_class($this).'|'.__FUNCTION__);

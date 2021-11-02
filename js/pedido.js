@@ -747,7 +747,7 @@ function eliminar_comanda_detalle(id_comanda_detalle, id_comanda, id_mesa){
 function eliminar_comanda_detalle_(){
     var valor = true;
     //var password = "";
-    var password = $('#password').val();
+    var password_ = $('#password_').val();
     var id_comanda_detalle = $('#id_comanda_detalle_eliminar').val();
     var id_comanda = $('#id_comanda_eliminar').val();
     var id_mesa = $('#id_mesa_eliminar').val();
@@ -756,7 +756,7 @@ function eliminar_comanda_detalle_(){
     valor = validar_parametro_vacio('id_comanda_detalle',id_comanda_detalle, valor);
     valor = validar_parametro_vacio('id_comanda',id_comanda, valor);
     valor = validar_parametro_vacio('id_mesa',id_mesa, valor);
-    valor = validar_parametro_vacio('password',password, valor);
+    valor = validar_parametro_vacio('password_',password_, valor);
     valor = validar_parametro_vacio('comanda_detalle_eliminacion',comanda_detalle_eliminacion, valor);
     //var password = $('#password').val();
 
@@ -765,7 +765,7 @@ function eliminar_comanda_detalle_(){
             "&id_mesa=" + id_mesa +
             "&id_comanda=" + id_comanda +
             "&comanda_detalle_eliminacion=" + comanda_detalle_eliminacion +
-            "&password=" + password;
+            "&password_=" + password_;
         $.ajax({
             type: "POST",
             url: urlweb + "api/Pedido/eliminar_comanda_detalle",

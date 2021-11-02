@@ -1507,11 +1507,10 @@ class PedidoController
             //Validacion de datos
             if ($ok_data) {
 //                if($this->pedido->verificar_password($this->encriptar->desencriptar($_SESSION['_n'],_FULL_KEY_), $_POST['password'])) {
-                if($ok_data) {
                     $id_rol = 3;
                     $id_rol_2 = 8;
                     $id_rol_3 = 5;
-                    if($this->pedido->verificar_password($id_rol, $id_rol_2, $id_rol_3, $_POST['password'])){
+                    if($this->pedido->verificar_password($id_rol, $id_rol_2,$id_rol_3,$_POST['password_'])){
                         $id_comanda_detalle = $_POST['id_comanda_detalle'];
                         $comanda_detalle_eliminacion = $_POST['comanda_detalle_eliminacion'];
                         $fecha_eliminacion = date('Y-m-d H:i:s');
@@ -1541,7 +1540,6 @@ class PedidoController
                         $result = 5;
                         $message = 'Contraseña Incorrecta';
                     }
-                }
             } else {
                 //Código 6: Integridad de datos erronea
                 $result = 6;
