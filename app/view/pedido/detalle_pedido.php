@@ -55,15 +55,41 @@
                                     <div class="form-group">
                                         <label class="col-form-label">Tipo Entrega</label>
                                         <select class="form-control" id= "comanda_detalle_despacho" name="comanda_detalle_despacho">
-                                            <option value="Salon">Salon</option>
-                                            <option value="Para llevar">Para llevar</option>
+                                            <option value="SALON">SALON</option>
+                                            <option value="PARA LLEVAR">PARA LLEVAR</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-md-6 col-xs-6">
                                     <label for="">Precio</label>
-                                    <input type="text" class="form-control" id="comanda_detalle_precio" name="comanda_detalle_precio">
+                                    <input type="text" readonly class="form-control" id="comanda_detalle_precio" name="comanda_detalle_precio">
                                 </div>
+                                <?php
+                                $dia = date('l');
+                                if($dia == "Tuesday" || $dia == "Wednesday" || $dia == "Thursday"){
+                                    ?>
+                                    <div class="col-lg-2 col-sm-2">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Descuento %</label>
+                                            <input type="text" onchange="calcular_descuento()" class="form-control" id="comanda_detalle_porcentaje" name="comanda_detalle_porcentaje">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-sm-2">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Total</label>
+                                            <input type="text" readonly class="form-control" id="comanda_total" name="comanda_total">
+                                        </div>
+                                    </div>
+                                    <?php
+                                }else{?>
+                                    <input type="hidden" class="form-control" id="comanda_detalle_porcentaje" name="comanda_detalle_porcentaje" value="0">
+                                    <input type="hidden" readonly class="form-control" id="comanda_total" name="comanda_total">
+
+                                    <?php
+                                }
+                                ?>
+
+
                                 <div class="col-lg-4 col-sm-8 col-md-8 col-xs-8">
                                     <div class="form-group">
                                         <label class="col-form-label">Observacion</label>
@@ -547,7 +573,7 @@
                     <div class="card shadow mb-4">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                <table class="table table-bordered" width="100%" cellspacing="0">
                                     <div class="container-fluid">
                                         <div class="row">
                                             <div class="col-lg-12" style="text-align: center;">
@@ -789,8 +815,9 @@
         var producto_nombre = $("#producto_nombre").val();
         var id_producto = $("#id_producto").val();
         var comanda_detalle_cantidad = $("#comanda_detalle_cantidad").val() * 1;
-        var comanda_detalle_precio = $("#comanda_detalle_precio").val() * 1;
+        var comanda_detalle_precio = $("#comanda_total").val() * 1;
         var comanda_detalle_despacho = $("#comanda_detalle_despacho").val();
+        var comanda_detalle_porcentaje = $('#comanda_detalle_porcentaje').val();
 
 
         var subtotal = comanda_detalle_cantidad * comanda_detalle_precio;
@@ -802,7 +829,7 @@
         total_total = parseFloat(total_total);*/
 
         if(id_producto !="" && comanda_detalle_cantidad!="" && comanda_detalle_precio!="" && producto_nombre!="" && subtotal!="" && comanda_detalle_despacho !="" ){
-            contenido_pedido += id_producto + "-.-." + producto_nombre + "-.-."+ comanda_detalle_precio+"-.-." + comanda_detalle_cantidad +"-.-."+comanda_detalle_despacho+"-.-." + comanda_detalle_observacion+"-.-."+subtotal+"/./.";
+            contenido_pedido += id_producto + "-.-." + producto_nombre + "-.-."+ comanda_detalle_precio+"-.-." + comanda_detalle_cantidad +"-.-."+comanda_detalle_despacho+"-.-." + comanda_detalle_observacion+"-.-."+subtotal+"-.-."+comanda_detalle_porcentaje+"/./.";
             $("#contenido_pedido").val(contenido_pedido);
             //$("#comanda_total_pedido").val(subtotal);
             show_table();
@@ -850,7 +877,7 @@
                 for(var i=0;i<filas.length - 1;i++){
                     if(i!=ind){
                         var celdas =filas[i].split('-.-.');
-                        contenido_artificio += celdas[0] + "-.-."+celdas[1] + "-.-." + celdas[2] + "-.-." + celdas[3] + "-.-." +celdas[4] + "-.-."+ celdas[5] + "-.-."+ celdas[6] + "/./.";
+                        contenido_artificio += celdas[0] + "-.-."+celdas[1] + "-.-." + celdas[2] + "-.-." + celdas[3] + "-.-." +celdas[4] + "-.-."+ celdas[5] + "-.-."+ celdas[6] +"-.-."+celdas[7] + "/./.";
                     }else{
                         var celdas =filas[i].split('-.-.');
                     }
@@ -866,11 +893,12 @@
         $("#id_producto").val("");
         $("#comanda_detalle_cantidad").val("1");
 
-        $("#comanda_detalle_despacho option[value='salon']").attr('selected','selected');
+        $("#comanda_detalle_despacho option[value='SALON']").attr('selected','selected');
         $("#comanda_detalle_precio").val("");
         $("#producto_nombre_").html("");
         $("#comanda_detalle_precio_").html("");
         $("#parametro").val("");
+        $('#comanda_detalle_porcentaje').val("");
     }
     //FIN - AGREGAR NUEVOS PEDIDOS
 
@@ -908,5 +936,14 @@
             $('#div_observacion_cortesia').hide();
         }
     }
+    /*function calcular_descuento(){
+        var comanda_detalle_porcentaje = $('#comanda_detalle_porcentaje').val();
+        var comanda_detalle_precio = $('#comanda_detalle_precio').val();
+        var porcentaje = comanda_detalle_porcentaje / 100;
+        var nue_total = comanda_detalle_precio * porcentaje;
+
+        var total = comanda_detalle_precio - nue_total;
+        $('#comanda_total').val(total.toFixed(2));
+    }*/
 
 </script>

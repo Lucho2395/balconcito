@@ -292,8 +292,8 @@
                         "<td><a data-toggle=\"tooltip\" onclick='delete_detalle("+i+")' title=\"Eliminar\" type=\"button\" class=\"text-danger\" ><i class=\"fa fa-times ver_detalle\"></i></a></td>"+
                         "</tr>";
                     conteo++;
-                    var monto_total = monto_total + celdas[6] * 1;
-                    var total = monto_total.toFixed(2);
+                    monto_total = monto_total + celdas[6] * 1;
+                    total = monto_total.toFixed(2);
                 }
             }
         }
@@ -328,7 +328,7 @@
                 for(var i=0;i<filas.length - 1;i++){
                     if(i!=ind){
                         var celdas =filas[i].split('-.-.');
-                        contenido_artificio += celdas[0] + "-.-."+celdas[1] + "-.-." + celdas[2] + "-.-." + celdas[3] + "-.-." +celdas[4] + "-.-."+ celdas[5] + "-.-."+ celdas[6] + "/./.";
+                        contenido_artificio += celdas[0] + "-.-."+celdas[1] + "-.-." + celdas[2] + "-.-." + celdas[3] + "-.-." +celdas[4] + "-.-."+ celdas[5] + "-.-."+ celdas[6] + "-.-."+celdas[7] +"/./.";
                     }else{
                         var celdas =filas[i].split('-.-.');
                     }
@@ -423,15 +423,7 @@
         }
     });
 
-    function calcular_descuento(){
-        var comanda_detalle_porcentaje = $('#comanda_detalle_porcentaje').val();
-        var comanda_detalle_precio = $('#comanda_detalle_precio').val();
-        var porcentaje = comanda_detalle_porcentaje / 100;
-        var nue_total = comanda_detalle_precio * porcentaje;
 
-        var total = comanda_detalle_precio - nue_total;
-        $('#comanda_total').val(total.toFixed(2));
-    }
 
 
 </script>

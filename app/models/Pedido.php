@@ -1430,7 +1430,7 @@ class Pedido
     }
     public function listar_detalles_x_pedido_pagados($id_comanda){
         try{
-            $sql = "select * from comanda_detalle where id_comanda = ? and comanda_detalle_estado_venta = 0";
+            $sql = "select * from comanda_detalle where id_comanda = ? and comanda_detalle_estado_venta = 0 and comanda_detalle_estado = 1";
             $stm = $this->pdo->prepare($sql);
             $stm->execute([$id_comanda]);
             $result = $stm->fetch();

@@ -490,8 +490,18 @@ function guardar_pedido(id,producto_nombre, precio){
     $('#id_producto').val(id);
     $('#producto_nombre').val(producto_nombre);
     $('#comanda_detalle_precio').val(precio);
+    $('#comanda_total').val(precio);
     calcular_descuento();
 
+}
+function calcular_descuento(){
+    var comanda_detalle_porcentaje = $('#comanda_detalle_porcentaje').val();
+    var comanda_detalle_precio = $('#comanda_detalle_precio').val();
+    var porcentaje = comanda_detalle_porcentaje / 100;
+    var nue_total = comanda_detalle_precio * porcentaje;
+
+    var total = comanda_detalle_precio - nue_total;
+    $('#comanda_total').val(total.toFixed(2));
 }
 
 function guardar_cliente_delivery(id,cliente_nombre,cliente_numero, cliente_direccion,cliente_telefono){
@@ -534,6 +544,7 @@ function guardar_pedido_nuevo(id,producto_nombre, precio){
     $("#producto_nuevo").html('');
     $("#producto_nombre_").html(producto_nombre);
     $("#comanda_detalle_precio_").html(precio);
+    $("#comanda_total").val(precio);
 
 }
 
