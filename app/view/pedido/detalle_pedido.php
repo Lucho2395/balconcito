@@ -917,7 +917,8 @@
         }
 
     }
-    function monto_dividido(valor){
+    function monto_dividido(valor_){
+        var valor = valor_ * 1;
         var total = $('#venta_total_').val();
         if(valor <= total){
             var resta = total - valor;
