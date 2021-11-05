@@ -865,7 +865,7 @@
         }
         $("#contenido_detalle_compra").html(llenar);
         $("#conteo").html(conteo);
-        $("#comanda_total").val(total);
+        $("#comanda_total_total").val(total);
         $("#comanda_total_").html("S/ " + total);
         //$("#contenido_pedido").val(contenido_pedido);
     }

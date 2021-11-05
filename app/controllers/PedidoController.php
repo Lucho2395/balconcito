@@ -813,7 +813,7 @@ class PedidoController
                 $id_mesa = $_POST['id_mesa'];
                 $model->id_mesa = $id_mesa;
                 $model->id_usuario = $id_usuario;
-                $model->comanda_total = $_POST['comanda_total'];
+                $model->comanda_total = $_POST['comanda_total_total'];
                 $model->comanda_fecha_registro = $fecha;
                 $model->comanda_cantidad_personas = $_POST['comanda_cantidad_personas'];
                 $model->comanda_estado = 1;

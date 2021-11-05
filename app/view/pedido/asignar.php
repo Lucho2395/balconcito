@@ -186,7 +186,7 @@
                                 <form class="" enctype="multipart/form-data" id="guardar_comanda">
                                     <input type="hidden" id="contenido" name="contenido">
                                     <input type="hidden" class="form-control" id="id_producto" name="id_producto">
-                                    <input type="hidden" class="form-control" id="comanda_total" name="comanda_total">
+                                    <input type="hidden" class="form-control" id="comanda_total_total" name="comanda_total_total">
                                     <input type="hidden" id="id_mesa" name="id_mesa" value="<?= $id;?>">
 
                                     <div class="form-group col-md-12">
@@ -299,7 +299,7 @@
         }
         $("#contenido_detalle_compra").html(llenar);
         $("#conteo").html(conteo);
-        $("#comanda_total").val(total);
+        $("#comanda_total_total").val(total);
         $("#comanda_total_").html("S/ " + total);
         $("#contenido").val(contenido);
     }
